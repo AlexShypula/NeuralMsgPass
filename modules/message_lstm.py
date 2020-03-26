@@ -38,12 +38,12 @@ class message_lstm(nn.Module):
         # input gate
         self.Wii = nn.Linear(input_size, hidden_size, bias = bias)
         self.Whi = nn.Linear(hidden_size, hidden_size, bias = bias)
-        self.input_activtion = nn.Sigmoid()
+        self.input_activation = nn.Sigmoid()
 
         # forget gate
         self.Wif = nn.Linear(input_size, hidden_size, bias=bias)
         self.Whf = nn.Linear(hidden_size, hidden_size, bias=bias)
-        self.forget_activtion = nn.Sigmoid()
+        self.forget_activation = nn.Sigmoid()
 
         # cell gate
         self.Wig = nn.Linear(input_size, hidden_size, bias = bias)
@@ -58,7 +58,7 @@ class message_lstm(nn.Module):
         # message gate
         self.Wrm = nn.Linear(self.message_size, hidden_size)
         self.Wcm = nn.Linear(hidden_size, hidden_size)
-        self.message_actvation = nn.Sigmoid()
+        self.message_activation = nn.Sigmoid()
         self.Wr = nn.Linear(self.message_size, hidden_size, bias = False) # no bias here according to Liu et al.
 
         self.hidden_activation = nn.Tanh()
@@ -75,12 +75,12 @@ class message_lstm(nn.Module):
             state_c: cell state after 1 iterateion
         """
 
-        if None in (state_h, state_c):
+        if state_h is None and state_c is None:
             batch_size = x_slice.shape[0]
             state_c = torch.zeros((batch_size, self.hidden_size))
             state_h = torch.zeros((batch_size, self.hidden_size))
 
-        i = self.input_activtion(self.Wii(x_slice) + self.Whi(state_h))
+        i = self.input_activation(self.Wii(x_slice) + self.Whi(state_h))
         f = self.forget_activation(self.Wif(x_slice) + self.Whf(state_h))
         g = self.cell_activation(self.Wig(x_slice) + self.Whg(state_h))
         o = self.output_activation(self.Wio(x_slice) + self.Who(state_h))
@@ -107,7 +107,7 @@ class message_lstm(nn.Module):
         state_h = state_c = None
         outputs = []
         for i in range(x.shape[1]):
-            output, state_h, state_c = self._step(x[:, i, :], state_h, state_c)
+            output, state_h, state_c = self._step(x[:, i, :], state_h = state_h, state_c = state_c)
             outputs.append(output)
 
         out = torch.stack(outputs, axis = 1)
