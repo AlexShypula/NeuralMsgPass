@@ -33,7 +33,6 @@ class message_lstm(nn.Module):
         else:
             self.message_size = hidden_size
         self.batch_first = batch_first
-        self.dropout = dropout
         self.bidirectional = bidirectional
 
         # input gate
