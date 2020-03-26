@@ -23,6 +23,6 @@ The vocab size of this dataset is 64250 (derived from train and val dataset). I 
 Pretrained embedding numpy array shape is [64250, 300],(from glove.840B.300d.txt) Download and put it under processed-dataset/embedding.pkl
 
 load it in this way:\
-import pickle
+import pickle \
 with open('processed-dataset/embedding.pkl', 'rb') as f:\
 &nbsp;&nbsp;&nbsp;&nbsp;w_emb = pickle.load(f)\
