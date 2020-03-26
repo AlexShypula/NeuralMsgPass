@@ -53,7 +53,7 @@ class sentimentDataset(Dataset):
 # collate fn lets you control the return value of each batch
 # for packed_seqs, you want to return your data sorted by length
 def collate_lines(seq_list):
-    inputs, targets, task_type = seq_list
+    inputs, targets, task_type = seq_list[0]
     lens = [len(seq) for seq in inputs]
     seq_order = sorted(range(len(lens)), key=lens.__getitem__, reverse=True)
     inputs = [inputs[i] for i in seq_order]
@@ -66,11 +66,15 @@ def load_data(batch_size):
     val_dataset = sentimentDataset("val", batch_size)
     test_dataset = sentimentDataset("test", batch_size)
 
-    train_loader = DataLoader(train_dataset, batch_size=None, collate_fn = collate_lines)
-    val_loader = DataLoader(val_dataset, batch_size=None, collate_fn = collate_lines)
-    test_loader = DataLoader(test_dataset, batch_size=None, collate_fn = collate_lines)
+    train_loader = DataLoader(train_dataset, shuffle=True, batch_size=1, collate_fn = collate_lines)
+    val_loader = DataLoader(val_dataset, shuffle=True, batch_size=1, collate_fn = collate_lines)
+    test_loader = DataLoader(test_dataset, shuffle=False, batch_size=1, collate_fn = collate_lines)
 
     return train_loader, val_loader, test_loader
 
 if __name__ == "__main__":
-    load_data(8)
+    x, _, _ = load_data(8)
+    for i in x:
+        _, _ , task = i
+        pdb.set_trace()
+        print(task)
