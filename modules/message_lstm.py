@@ -25,7 +25,7 @@ class message_lstm(nn.Module):
 
         bidirectional – If True, becomes a bidirectional LSTM. Default: Fal
         """
-        super(lstm, self).__init__()
+        super(message_lstm, self).__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
         if message_size is not None:
@@ -101,7 +101,7 @@ class message_lstm(nn.Module):
 
     def forward(self, x):
         """
-        
+
         """
         if self.batch_first is False:
             x = x.transpose(0,1)
