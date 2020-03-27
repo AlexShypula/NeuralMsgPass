@@ -35,7 +35,7 @@ class my_model(nn.Module):
         self.aggregation_activation = nn.Tanh()
         self.Ws = nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
-        self.softmax = nn.Softmax(dim = 1)
+        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, x, TASK):
 
@@ -47,18 +47,18 @@ class my_model(nn.Module):
         state_h = torch.zeros(embeddings.size(0), self.hidden_size)
         state_c = torch.zeros(embeddings.size(0), self.hidden_size)
 
-        message_lstm = self.task_specific_lstm_list[TASK]
+        task_specific_lstm = self.task_specific_lstm_list[TASK]
         outputs = []
         # loop for the "decoder" or task specific layer
         for t in range(h_shared.size(1)):
             catted_input = torch.cat((h_shared, h_task, embeddings), dim = 2)
-            var1 = self.Ws(catted_input) # var 1 is B x T x H
-            var2 = self.aggregation_activation(var1) # var 1 is B x T x H
-            Si = self.Us(var2) # Si is B x T x 1
-            B = self.softmax(Si) # B is B x T x 1, softmax over T
-            norm_h_shared = torch.mul(B, h_shared) # (B x T x 1 ) x (B x T x H) -> (B x T x H)
-            Rt = torch.sum(norm_h_shared, dim = 1) # (B x H)
-            output, state_h, state_c = self.task_specific_lstm_list[TASK]._step(embeddings[t], Rt, state_h, state_c)
+            var1 = task_specific_lstm.Ws(catted_input)  # var 1 is B x T x H
+            var2 = task_specific_lstm.aggregation_activation(var1)  # var 1 is B x T x H
+            Si = task_specific_lstm.Us(var2)  # Si is B x T x 1
+            B = task_specific_lstm.softmax(Si)  # B is B x T x 1, softmax over T
+            norm_h_shared = torch.mul(B, h_shared)  # (B x T x 1 ) x (B x T x H) -> (B x T x H)
+            Rt = torch.sum(norm_h_shared, dim=1)  # (B x H)
+            output, state_h, state_c = task_specific_lstm._step(embeddings[t], Rt, state_h, state_c)
             outputs.append(output)
             h_task = state_h.repeat(1, h_shared.size(1), 1) # state_h was B x H -> B x T x H
 
