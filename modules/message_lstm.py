@@ -111,7 +111,7 @@ class message_lstm(nn.Module):
             outputs.append(output)
 
         out = torch.stack(outputs, axis = 1)
-
+        # out is of dim (B x T x H)
         return out
 
 
