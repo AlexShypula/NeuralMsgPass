@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 
+
 class message_lstm(nn.Module):
     def __init__(self, input_size: int, hidden_size: int, message_size: int = None, bias: bool = True, batch_first: bool = True, bidirectional: bool = False):
         """
