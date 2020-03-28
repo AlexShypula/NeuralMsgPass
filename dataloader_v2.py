@@ -38,7 +38,7 @@ class sentimentDataset(Dataset):
         self.task_beginning_indices = []
         for dataset_name in dataset_names:
 
-            with open(os.path.join(path_to_data, dataset_name) + '.' + mode) as f:
+            with open(os.path.join(path_to_data, dataset_name) + '.' + mode + ".txt") as f:
                 for idx, line in enumerate(f):
                     l = line.strip().split('\t')
                     label, sentence = line.strip().split('\t')
@@ -91,7 +91,6 @@ class batch_iterator:
             self.number_batches += task_batches
             self.task_last_batch_indices.append(self.number_batches-1)
 
-
     def get_index_info(self, index):
 
         task_index = bisect.bisect_left(self.task_last_batch_indices, index)
@@ -99,7 +98,8 @@ class batch_iterator:
         dataset_index_offset = self.batch_size * batch_offset
         dataset_start_idx = dataset_index_offset + self.dataset.task_beginning_indices[task_index]
 
-        if index != self.task_last_batch_indices[task_index] or (self.dataset.task_lengths[task_index] % self.batch_size) == 0:
+        if index != self.task_last_batch_indices[task_index] \
+                or (self.dataset.task_lengths[task_index] % self.batch_size) == 0:
             return self.batch_size, task_index, dataset_start_idx
         else:
             return self.dataset.task_lengths[task_index] % self.batch_size, task_index, dataset_start_idx
@@ -128,7 +128,6 @@ class batch_iterator:
         return self.number_batches
 
 
-
 class sentimentDataLoader(DataLoader):
     """
 
@@ -140,10 +139,10 @@ class sentimentDataLoader(DataLoader):
         self.shuffle = shuffle
         self.iterator = batch_iterator(self.dataset, self.batch_size, self.shuffle)
 
-
     def __iter__(self):
         # concatenate your articles and build into batches
         yield from self.iterator
+
 
 def get_datasets(train_batch_size, val_batch_size, test_batch_size):
 
@@ -151,9 +150,9 @@ def get_datasets(train_batch_size, val_batch_size, test_batch_size):
     _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
     _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
 
-    _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle = True)
-    _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle= False)
-    _test_loader = DataLoader(_test_dataset, test_batch_size, shuffle = False)
+    _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle=True)
+    _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle=False)
+    _test_loader = DataLoader(_test_dataset, test_batch_size, shuffle=False)
 
     return _train_loader, _val_loader, _test_loader
 

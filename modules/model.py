@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.utils.rnn as rnn
-from message_lstm import message_lstm
+from .message_lstm import message_lstm
 
 
 class my_model(nn.Module):
@@ -9,7 +9,7 @@ class my_model(nn.Module):
                  vocab,
                  embed_dim: int,
                  num_tasks: int,
-                 # input_size: int,
+                 input_size: int,
                  hidden_size: int,
                  message_size: int = None,
                  bias: bool = True,
@@ -20,15 +20,16 @@ class my_model(nn.Module):
         self.num_tasks = num_tasks
         self.vocab_size = len(vocab)
         self.embed_dim = embed_dim
-        # self.input_size = input_size
+        self.input_size = input_size
         self.hidden_size = hidden_size
         self.message_size = message_size
         self.bias = bias
         self.batch_first = batch_first
         self.bidirectional = bidirectional
 
-        self.embed = nn.Embedding(self.vocab_size, self.embed_dim)
-        self.embed.weight.data.copy_(vocab.vectors)
+        self.embed = nn.Embedding(self.input_size, self.embed_dim)
+        # self.embed = nn.Embedding.from_pretrained(vocab)
+        # self.embed.weight.data.copy_(vocab.vectors)
         self.share_lstm = nn.LSTM(self.embed_dim, self.hidden_size,
                                   num_layers=1, batch_first=self.batch_first, bidirectional=self.bidirectional)
         self.task_specific_lstm_list = [message_lstm(self.embed_dim,
