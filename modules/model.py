@@ -6,8 +6,10 @@ from message_lstm import message_lstm
 
 class my_model(nn.Module):
     def __init__(self,
+                 vocab,
+                 embed_dim: int,
                  num_tasks: int,
-                 input_size: int,
+                 # input_size: int,
                  hidden_size: int,
                  message_size: int = None,
                  bias: bool = True,
@@ -16,16 +18,20 @@ class my_model(nn.Module):
         super(my_model, self).__init__()
 
         self.num_tasks = num_tasks
-        self.input_size = input_size
+        self.vocab_size = len(vocab)
+        self.embed_dim = embed_dim
+        # self.input_size = input_size
         self.hidden_size = hidden_size
         self.message_size = message_size
         self.bias = bias
         self.batch_first = batch_first
         self.bidirectional = bidirectional
 
-        self.share_lstm = nn.LSTM(self.input_size, self.hidden_size,
+        self.embed = nn.Embedding(self.vocab_size, self.embed_dim)
+        self.embed.weight.data.copy_(vocab.vectors)
+        self.share_lstm = nn.LSTM(self.embed_dim, self.hidden_size,
                                   num_layers=1, batch_first=self.batch_first, bidirectional=self.bidirectional)
-        self.task_specific_lstm_list = [message_lstm(self.input_size,
+        self.task_specific_lstm_list = [message_lstm(self.embed_dim,
                                                      self.hidden_size,
                                                      self.message_size,
                                                      self.bias,
@@ -33,7 +39,7 @@ class my_model(nn.Module):
                                                      self.bidirectional)] * self.num_tasks
 
         self.aggregation_activation = nn.Tanh()
-        self.Ws = nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
+        self.Ws = nn.Linear(self.embed_dim + 2 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
         self.softmax = nn.Softmax(dim=1)
 
@@ -60,7 +66,7 @@ class my_model(nn.Module):
             Rt = torch.sum(norm_h_shared, dim=1)  # (B x H)
             output, state_h, state_c = task_specific_lstm._step(embeddings[t], Rt, state_h, state_c)
             outputs.append(output)
-            h_task = state_h.repeat(1, h_shared.size(1), 1) # state_h was B x H -> B x T x H
+            h_task = state_h.repeat(1, h_shared.size(1), 1)  # state_h was B x H -> B x T x H
 
         out = torch.stack(outputs, axis=1)
 
