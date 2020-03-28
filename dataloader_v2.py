@@ -1,5 +1,5 @@
 import torch
-from torch.utils.data import Dataset, DataLoader, TensorDataset
+from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import bisect
 import time
@@ -11,7 +11,11 @@ import math
 
 random.seed(88888888)
 
-datasets = ['apparel', 'baby', 'books', 'camera_photo', 'dvd', 'electronics',
+PATH_TO_DATA = "processed-dataset"
+MODE_TRAIN = "train"
+MODE_VAL = "val"
+MODE_TEST = "test"
+DATASETS = ['apparel', 'baby', 'books', 'camera_photo', 'dvd', 'electronics',
             'health_personal_care', 'imdb', 'kitchen_housewares', 'magazines',
             'MR', 'music', 'software', 'sports_outdoors', 'toys_games', 'video', ]
 
@@ -38,8 +42,8 @@ class sentimentDataset(Dataset):
                 for idx, line in enumerate(f):
                     l = line.strip().split('\t')
                     label, sentence = line.strip().split('\t')
-                    self.labels.append(label) #TODO typecheck
-                    sentence_tensor = torch.tensor([float(word_id) for word_id in sentence.split()], dtype = torch.float32)
+                    self.labels.append(int(label)) #TODO typecheck
+                    sentence_tensor = torch.tensor([float(word_id) for word_id in sentence.split()], dtype = torch.long)
                     self.sentence_tensors.append(sentence_tensor)
 
             self.task_lengths.append(idx+1)
@@ -70,7 +74,7 @@ class sentimentDataset(Dataset):
         return len(self.sentence_tensors)
 
 
-class batch_generator:
+class batch_iterator:
     def __init__(self, dataset: Dataset, batch_size: int, shuffle: bool):
 
         self.dataset = dataset
@@ -118,10 +122,49 @@ class batch_generator:
                 sentences.append(sentence)
                 labels.append(label)
             #print(f"sentences are {sentences} and labels are {labels} and task is {task}")
-            yield sentences, labels, task
+            yield sentences, torch.tensor(labels, dtype = torch.long), task
 
     def __len__(self):
         return self.number_batches
 
 
+
+class sentimentDataLoader(DataLoader):
+    """
+
+    """
+    def __init__(self, dataset, batch_size, shuffle=True):
+        super(sentimentDataLoader, self).__init__(dataset, batch_size = batch_size)
+        # note that super sets dataset to self.dataset and batchsize to self.batch_size
+
+        self.shuffle = shuffle
+        self.iterator = batch_iterator(self.dataset, self.batch_size, self.shuffle)
+
+
+    def __iter__(self):
+        # concatenate your articles and build into batches
+        yield from self.iterator
+
+def get_datasets(train_batch_size, val_batch_size, test_batch_size):
+
+    _train_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_TRAIN)
+    _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
+    _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
+
+    _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle = True)
+    _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle= False)
+    _test_loader = DataLoader(_test_dataset, test_batch_size, shuffle = False)
+
+    return _train_loader, _val_loader, _test_loader
+
+
+if __name__ == "__main__":
+    dataset = sentimentDataset("tmp", ['single', 'tens', 'twenties'], "demo")
+    print(f"dataset sentence tensors are {dataset.sentence_tensors} and the corresponding labels are dataset {dataset.labels}")
+    dataloader = sentimentDataLoader(dataset, batch_size=3, shuffle=True)
+    print(f"batch size is set to 3 and we will do three epochs, note that shuffle is set to {True}")
+    for epoch in range(3):
+        print(f"epoch {epoch}: ")
+        for i, (sentence_tensor, labels, task) in enumerate(dataloader):
+            print(f"batch number {i+1} is of task: {task}\nhas sentence tensor: {sentence_tensor}\nlabels: {labels}")
 
