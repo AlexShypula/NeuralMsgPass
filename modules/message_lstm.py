@@ -58,6 +58,7 @@ class message_lstm(nn.Module):
         self.Wr = nn.Linear(self.message_size, hidden_size, bias=False) # no bias here according to Liu et al.
 
         self.hidden_activation = nn.Tanh()
+        self.fc = nn.Linear(self.hidden_size, 1)
 
     def masked_softmax(self, vec, mask, dim=1):
         """masked softmax

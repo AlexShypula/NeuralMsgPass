@@ -45,7 +45,6 @@ class my_model(nn.Module):
         self.Ws = nn.Linear(self.embed_dim + 2 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
         self.softmax = nn.Softmax(dim=1)
-        self.fc = nn.Linear(self.hidden_size, 1)
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x, mask, TASK):
@@ -80,6 +79,6 @@ class my_model(nn.Module):
             h_task = h_task.repeat(1, shared_task_output.size(1), 1)  # state_h was B x H -> B x T x H
             # pdb.set_trace()
         # out = torch.stack(outputs, axis=1)
-        out = self.fc(output)
+        out = task_specific_lstm.fc(output)
         out = self.sigmoid(out)
         return out
