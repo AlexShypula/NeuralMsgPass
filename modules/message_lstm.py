@@ -140,7 +140,7 @@ class message_lstm_dc(nn.Module):
         self.Ws_p2 = torch.randn(hidden_size + input_size, hidden_size, dtype=torch.long, requires_grad=True)  # nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
         self.aggregate_activation = nn.Tanh()
-        self.softmax = nn.Softmax(dim=1)
+        #self.softmax = nn.Softmax(dim=1)
 
         # input gate
         self.Wii = nn.Linear(input_size, hidden_size, bias = bias)
@@ -169,6 +169,28 @@ class message_lstm_dc(nn.Module):
         self.Wr = nn.Linear(self.hidden_size, hidden_size, bias=False)  # no bias here according to Liu et al.
 
         self.hidden_activation = nn.Tanh()
+
+        # task specific output layer
+        self.task_specific_output = nn.Sequential(
+                                            nn.Linear(hidden_size, 1),
+                                            nn.Sigmoid())
+
+    def masked_softmax(self, vec, mask, dim=1):
+        """masked softmax
+
+        Arguments:
+            x {[torch.FloatTensor]} -- B x T x 1
+            mask {[torch.FloatTensor]} -- B x T
+        """
+        vec = vec.squeeze(dim=2)
+        masked_vec = vec * mask
+        max_vec = torch.max(masked_vec, dim=dim, keepdim=True)[0]
+        exps = torch.exp(masked_vec - max_vec)
+        masked_exps = exps * mask.float()
+        masked_sums = masked_exps.sum(dim, keepdim=True)
+        zeros = (masked_sums == 0)
+        masked_sums += zeros.float()
+        return masked_exps / masked_sums
 
     def _step(self, x_slice, r = None, state_h = None, state_c = None):
         """
