@@ -44,4 +44,5 @@ for e in range(num_epoch):
         # train_x.to(DEVICE)
         # train_y.to(DEVICE)
         preds = model(train_x, task_to_idx[task_type])
+        pdb.set_trace()
 

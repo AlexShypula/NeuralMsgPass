@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+import pdb
 
 
 class message_lstm(nn.Module):
@@ -96,7 +97,7 @@ class message_lstm(nn.Module):
             h_tilde = self.hidden_activation(state_c)
             state_h = torch.mul(o, h_tilde)
         else:
-            m = self.message_actvation(self.Wrm(r) + self.Wcm(state_c))
+            m = self.message_activation(self.Wrm(r) + self.Wcm(state_c))
             R = self.Wr(r)
             M = torch.mul(m, R)
             h_tilde = self.hidden_activation(state_c + M)

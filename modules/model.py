@@ -54,7 +54,7 @@ class my_model(nn.Module):
         embeddings = self.embed(padded_input)  # B x T x E
         # pdb.set_trace()
 
-        shared_task_output, (h_shared, c_n) = self.share_lstm(embeddings)  # h_shared: 1 x B x H
+        shared_task_output, (h_shared, c_n) = self.share_lstm(embeddings)  # shared_task_output: T x B x H
         h_shared = h_shared.transpose(0, 1)  # batch first B x 1 x H
         h_task = torch.zeros(embeddings.size(0), embeddings.size(1), self.hidden_size).to(DEVICE)  # B x T x H
         state_h = torch.zeros(embeddings.size(0), self.hidden_size).to(DEVICE)  # B x H
@@ -63,7 +63,7 @@ class my_model(nn.Module):
         task_specific_lstm = self.task_specific_lstm_list[TASK].to(DEVICE)
         outputs = []
         # loop for the "decoder" or task specific layer
-        pdb.set_trace()
+        # pdb.set_trace()
 
         # loop through each time step
         for t in range(embeddings.size(1)):
@@ -74,10 +74,11 @@ class my_model(nn.Module):
             B = task_specific_lstm.softmax(Si)  # B is B x T x 1, softmax over T
             norm_h_shared = torch.mul(B, h_shared)  # (B x T x 1 ) x (B x T x H) -> (B x T x H)
             Rt = torch.sum(norm_h_shared, dim=1)  # (B x H)
-            output, state_h, state_c = task_specific_lstm._step(embeddings[t], Rt, state_h, state_c)
+            output, state_h, state_c = task_specific_lstm._step(embeddings[:, t, :], Rt, state_h, state_c)
             outputs.append(output)
-            h_task = state_h.repeat(1, h_shared.size(1), 1)  # state_h was B x H -> B x T x H
-
+            state_h = state_h.unsqueeze(1)  # B x 1 x H
+            h_task = state_h.repeat(1, shared_task_output.size(1), 1)  # state_h was B x H -> B x T x H
+            # pdb.set_trace()
         out = torch.stack(outputs, axis=1)
 
         return out
