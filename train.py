@@ -41,6 +41,7 @@ num_epoch = 10
 
 criterion = nn.BCELoss(reduction='mean')
 criterion = criterion.to(DEVICE)
+
 for e in range(num_epoch):
     model.train()
     before = time.time()

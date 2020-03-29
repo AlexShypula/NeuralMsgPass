@@ -38,7 +38,7 @@ class sentimentDataset(Dataset):
         self.task_beginning_indices = []
         for dataset_name in dataset_names:
 
-            with open(os.path.join(path_to_data, dataset_name) + '.' + mode + ".txt") as f:
+            with open(os.path.join(path_to_data, dataset_name) + '.' + mode) as f:
                 for idx, line in enumerate(f):
                     l = line.strip().split('\t')
                     label, sentence = line.strip().split('\t')
@@ -98,8 +98,7 @@ class batch_iterator:
         dataset_index_offset = self.batch_size * batch_offset
         dataset_start_idx = dataset_index_offset + self.dataset.task_beginning_indices[task_index]
 
-        if index != self.task_last_batch_indices[task_index] \
-                or (self.dataset.task_lengths[task_index] % self.batch_size) == 0:
+        if index != self.task_last_batch_indices[task_index] or (self.dataset.task_lengths[task_index] % self.batch_size) == 0:
             return self.batch_size, task_index, dataset_start_idx
         else:
             return self.dataset.task_lengths[task_index] % self.batch_size, task_index, dataset_start_idx
@@ -143,16 +142,15 @@ class sentimentDataLoader(DataLoader):
         # concatenate your articles and build into batches
         yield from self.iterator
 
-
 def get_datasets(train_batch_size, val_batch_size, test_batch_size):
 
     _train_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_TRAIN)
     _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
     _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
 
-    _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle=True)
-    _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle=False)
-    _test_loader = DataLoader(_test_dataset, test_batch_size, shuffle=False)
+    _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle = True)
+    _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle= False)
+    _test_loader = DataLoader(_test_dataset, test_batch_size, shuffle = False)
 
     return _train_loader, _val_loader, _test_loader
 
