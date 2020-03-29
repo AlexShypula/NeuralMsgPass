@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.utils.rnn as rnn
-from .message_lstm import message_lstm
+from .message_lstm import message_lstm, message_lstm_dc
 
 
 class direct_communication_network(nn.Module):
@@ -31,9 +31,8 @@ class direct_communication_network(nn.Module):
         # self.embed = nn.Embedding.from_pretrained(vocab)
         # self.embed.weight.data.copy_(vocab.vectors)
 
-        self.task_specific_lstm_list = [message_lstm(self.embed_dim,
+        self.task_specific_lstm_list = [message_lstm_dc(self.embed_dim,
                                                      self.hidden_size,
-                                                     self.message_size,
                                                      self.bias,
                                                      self.batch_first,
                                                      self.bidirectional)] * self.num_tasks

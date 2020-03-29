@@ -116,7 +116,7 @@ class message_lstm(nn.Module):
 
 
 class message_lstm_dc(nn.Module):
-    def __init__(self, input_size: int, hidden_size: int, embedding_size: int, bias: bool = True, batch_first: bool = True, bidirectional: bool = False):
+    def __init__(self, input_size: int, hidden_size: int,  bias: bool = True, batch_first: bool = True, bidirectional: bool = False):
         """
         这就是大佬lstm， 只有大佬能够用
         In the constructor we instantiate two nn.Linear modules and assign them as
@@ -136,8 +136,8 @@ class message_lstm_dc(nn.Module):
         self.batch_first = batch_first
         self.bidirectional = bidirectional
 
-        self.Ws_p1 = torch.randn(hidden_size, hidden_size, device=device, dtype=torch.long, requires_grad=True)  #nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
-        self.Ws_p2 = torch.randn(hidden_size + embedding_size, hidden_size, device=device, dtype=torch.long, requires_grad=True)  # nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
+        self.Ws_p1 = torch.randn(hidden_size, hidden_size, dtype=torch.long, requires_grad=True)  #nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
+        self.Ws_p2 = torch.randn(hidden_size + input_size, hidden_size, dtype=torch.long, requires_grad=True)  # nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
         self.aggregate_activation = nn.Tanh()
         self.softmax = nn.Softmax(dim=1)
