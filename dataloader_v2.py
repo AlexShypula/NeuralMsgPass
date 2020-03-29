@@ -25,7 +25,7 @@ class sentimentDataset(Dataset):
     def lengths2indices(self, task_lengths: List[int]):
         return [0]+list(np.cumsum(task_lengths))[:-1]
 
-    def __init__(self, path_to_data: str, dataset_names: List[str], mode: str):  # mode is [train, val, test]
+    def __init__(self, path_to_data: str, dataset_names: List[str], mode: str, sentence_length_threshold = 350):  # mode is [train, val, test]
         super(sentimentDataset, self).__init__()
 
         self.task2idx = {task: i for i, task in enumerate(dataset_names)}
@@ -39,14 +39,17 @@ class sentimentDataset(Dataset):
         for dataset_name in dataset_names:
 
             with open(os.path.join(path_to_data, dataset_name) + '.' + mode) as f:
-                for idx, line in enumerate(f):
+                n_added = 0
+                for line in f:
                     l = line.strip().split('\t')
                     label, sentence = line.strip().split('\t')
-                    self.labels.append(int(label)) #TODO typecheck
-                    sentence_tensor = torch.tensor([float(word_id) for word_id in sentence.split()], dtype = torch.long)
-                    self.sentence_tensors.append(sentence_tensor)
+                    if (len(sentence)) <= sentence_length_threshold:
+                        self.labels.append(int(label)) #TODO typecheck
+                        sentence_tensor = torch.tensor([float(word_id) for word_id in sentence.split()], dtype = torch.long)
+                        self.sentence_tensors.append(sentence_tensor)
+                        n_added+=1
 
-            self.task_lengths.append(idx+1)
+            self.task_lengths.append(n_added)
         self.task_beginning_indices = self.lengths2indices(self.task_lengths)
 
     def __getitem__(self, i):
