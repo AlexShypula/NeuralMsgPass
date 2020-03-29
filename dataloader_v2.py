@@ -25,7 +25,7 @@ class sentimentDataset(Dataset):
     def lengths2indices(self, task_lengths: List[int]):
         return [0]+list(np.cumsum(task_lengths))[:-1]
 
-    def __init__(self, path_to_data: str, dataset_names: List[str], mode: str):  # mode is [train, val, test]
+    def __init__(self, path_to_data: str, dataset_names: List[str], mode: str, sentence_length_threshold = 350):  # mode is [train, val, test]
         super(sentimentDataset, self).__init__()
 
         self.task2idx = {task: i for i, task in enumerate(dataset_names)}
@@ -39,14 +39,17 @@ class sentimentDataset(Dataset):
         for dataset_name in dataset_names:
 
             with open(os.path.join(path_to_data, dataset_name) + '.' + mode) as f:
-                for idx, line in enumerate(f):
+                n_added = 0
+                for line in f:
                     l = line.strip().split('\t')
                     label, sentence = line.strip().split('\t')
-                    self.labels.append(int(label)) #TODO typecheck
-                    sentence_tensor = torch.tensor([float(word_id) for word_id in sentence.split()], dtype = torch.long)
-                    self.sentence_tensors.append(sentence_tensor)
+                    if (len(sentence)) <= sentence_length_threshold:
+                        self.labels.append(int(label)) #TODO typecheck
+                        sentence_tensor = torch.tensor([float(word_id) for word_id in sentence.split()], dtype = torch.long)
+                        self.sentence_tensors.append(sentence_tensor)
+                        n_added+=1
 
-            self.task_lengths.append(idx+1)
+            self.task_lengths.append(n_added)
         self.task_beginning_indices = self.lengths2indices(self.task_lengths)
 
     def __getitem__(self, i):
@@ -91,6 +94,7 @@ class batch_iterator:
             self.number_batches += task_batches
             self.task_last_batch_indices.append(self.number_batches-1)
 
+
     def get_index_info(self, index):
 
         task_index = bisect.bisect_left(self.task_last_batch_indices, index)
@@ -127,9 +131,9 @@ class batch_iterator:
         return self.number_batches
 
 
+
 class sentimentDataLoader(DataLoader):
     """
-
     """
     def __init__(self, dataset, batch_size, shuffle=True):
         super(sentimentDataLoader, self).__init__(dataset, batch_size = batch_size)
@@ -138,15 +142,16 @@ class sentimentDataLoader(DataLoader):
         self.shuffle = shuffle
         self.iterator = batch_iterator(self.dataset, self.batch_size, self.shuffle)
 
+
     def __iter__(self):
         # concatenate your articles and build into batches
         yield from self.iterator
 
-def get_datasets(train_batch_size, val_batch_size, test_batch_size):
+def get_datasets(train_batch_size, val_batch_size, test_batch_size, max_sentence_length = 350):
 
-    _train_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_TRAIN)
-    _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
-    _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
+    _train_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_TRAIN, max_sentence_length)
+    _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL, max_sentence_length)
+    _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL, max_sentence_length)
 
     _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle = True)
     _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle= False)
@@ -164,4 +169,3 @@ if __name__ == "__main__":
         print(f"epoch {epoch}: ")
         for i, (sentence_tensor, labels, task) in enumerate(dataloader):
             print(f"batch number {i+1} is of task: {task}\nhas sentence tensor: {sentence_tensor}\nlabels: {labels}")
-
