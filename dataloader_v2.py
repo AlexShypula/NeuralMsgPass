@@ -154,9 +154,9 @@ def get_datasets(train_batch_size, val_batch_size, test_batch_size, max_sentence
     _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL, max_sentence_length)
     _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL, max_sentence_length)
 
-    _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle = True)
-    _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle= False)
-    _test_loader = DataLoader(_test_dataset, test_batch_size, shuffle = False)
+    _train_loader = sentimentDataLoader(_train_dataset, train_batch_size, shuffle = True)
+    _val_loader = sentimentDataLoader(_val_dataset, val_batch_size, shuffle= False)
+    _test_loader = sentimentDataLoader(_test_dataset, test_batch_size, shuffle = False)
 
     return _train_loader, _val_loader, _test_loader
 
