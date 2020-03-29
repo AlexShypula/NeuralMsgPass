@@ -148,11 +148,11 @@ class sentimentDataLoader(DataLoader):
         # concatenate your articles and build into batches
         yield from self.iterator
 
-def get_datasets(train_batch_size, val_batch_size, test_batch_size):
+def get_datasets(train_batch_size, val_batch_size, test_batch_size, max_sentence_length = 350):
 
-    _train_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_TRAIN)
-    _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
-    _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL)
+    _train_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_TRAIN, max_sentence_length)
+    _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL, max_sentence_length)
+    _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL, max_sentence_length)
 
     _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle = True)
     _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle= False)
