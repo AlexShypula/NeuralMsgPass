@@ -93,17 +93,17 @@ for e in range(num_epoch):
 
             # sometime the val_loader will somehow return empty val_x
             # which will break pad_sequence
+            task_index = train_loader.dataset.task2idx[task_type]
             if len(val_x) == 0:
                 print('empty val_x')
                 continue
             val_x = rnn.pad_sequence(val_x, batch_first=True, padding_value=0)
             val_x = val_x.to(DEVICE)
-            val_y = torch.tensor(val_y, dtype=torch.float32)
             val_y = val_y.to(DEVICE)
 
             mask = val_x != 0
             mask = mask.float()
-            val_out = model(val_x, mask, task_to_idx[task_type])
+            val_out = model(val_x, mask, task_index)
             val_loss = criterion(val_out.view(-1), val_y.view(-1))
             val_total_loss += val_loss.detach().item()
             binary_outputs = np.where(val_out.view(-1).data.cpu().numpy() > 0.5, 1, 0)
@@ -112,7 +112,7 @@ for e in range(num_epoch):
             val_count += val_x.size(0)
         val_end = time.time()
         cur_valid_acc = val_corrects / val_count
-        if cur_valid_acc > best_valid_acc and cur_valid_acc > 0.7:
+        if cur_valid_acc > best_valid_acc:
             best_valid_acc = cur_valid_acc
             print('@@@ Saving Best Model with Accuracy: {}% @@@\n'.format(cur_valid_acc))
             torch.save(model, 'model.pt')
