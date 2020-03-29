@@ -91,7 +91,6 @@ class batch_iterator:
             self.number_batches += task_batches
             self.task_last_batch_indices.append(self.number_batches-1)
 
-
     def get_index_info(self, index):
 
         task_index = bisect.bisect_left(self.task_last_batch_indices, index)
@@ -128,7 +127,6 @@ class batch_iterator:
         return self.number_batches
 
 
-
 class sentimentDataLoader(DataLoader):
     """
 
@@ -139,7 +137,6 @@ class sentimentDataLoader(DataLoader):
 
         self.shuffle = shuffle
         self.iterator = batch_iterator(self.dataset, self.batch_size, self.shuffle)
-
 
     def __iter__(self):
         # concatenate your articles and build into batches

@@ -8,12 +8,14 @@ import pdb
 datasets = ['apparel','baby','books','camera_photo','dvd','electronics',
             'health_personal_care','imdb','kitchen_housewares','magazines',
             'MR','music','software','sports_outdoors','toys_games','video',]
+
+
 class sentimentDataset(Dataset):
     
-    def __init__(self,mode, batch_size): # mode is [train, val, test]
+    def __init__(self,mode, batch_size):  # mode is [train, val, test]
         self.mode = mode
         self.batch_size = batch_size
-        self.ids_list = [] # 16 lists of sentence ids
+        self.ids_list = []  # 16 lists of sentence ids
         self.labels_list = []
         self.lengths = []
         self.lengths_incr = []
@@ -50,6 +52,7 @@ class sentimentDataset(Dataset):
     def __len__(self):
         return int(sum(self.lengths) / self.batch_size)
 
+
 # collate fn lets you control the return value of each batch
 # for packed_seqs, you want to return your data sorted by length
 def collate_lines(seq_list):
@@ -57,8 +60,9 @@ def collate_lines(seq_list):
     lens = [len(seq) for seq in inputs]
     seq_order = sorted(range(len(lens)), key=lens.__getitem__, reverse=True)
     inputs = [inputs[i] for i in seq_order]
-    targets= [targets[i] for i in seq_order]
+    targets = [targets[i] for i in seq_order]
     return inputs, targets, task_type
+
 
 def load_data(batch_size):
 
@@ -66,15 +70,16 @@ def load_data(batch_size):
     val_dataset = sentimentDataset("val", batch_size)
     test_dataset = sentimentDataset("test", batch_size)
 
-    train_loader = DataLoader(train_dataset, shuffle=True, batch_size=1, collate_fn = collate_lines)
-    val_loader = DataLoader(val_dataset, shuffle=True, batch_size=1, collate_fn = collate_lines)
-    test_loader = DataLoader(test_dataset, shuffle=False, batch_size=1, collate_fn = collate_lines)
+    train_loader = DataLoader(train_dataset, shuffle=True, batch_size=1, collate_fn=collate_lines)
+    val_loader = DataLoader(val_dataset, shuffle=True, batch_size=1, collate_fn=collate_lines)
+    test_loader = DataLoader(test_dataset, shuffle=False, batch_size=1, collate_fn=collate_lines)
 
     return train_loader, val_loader, test_loader
+
 
 if __name__ == "__main__":
     x, _, _ = load_data(8)
     for i in x:
-        _, _ , task = i
+        _, _, task = i
         pdb.set_trace()
         print(task)

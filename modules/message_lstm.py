@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 
+
 class message_lstm(nn.Module):
     def __init__(self, input_size: int, hidden_size: int, message_size: int = None, bias: bool = True, batch_first: bool = True, bidirectional: bool = False):
         """
@@ -35,6 +36,11 @@ class message_lstm(nn.Module):
         self.batch_first = batch_first
         self.bidirectional = bidirectional
 
+        self.Ws = nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
+        self.Us = nn.Linear(self.hidden_size, 1)
+        self.aggregate_activation = nn.Tanh()
+        self.softmax = nn.Softmax(dim=1)
+
         # input gate
         self.Wii = nn.Linear(input_size, hidden_size, bias = bias)
         self.Whi = nn.Linear(hidden_size, hidden_size, bias = bias)
@@ -59,7 +65,7 @@ class message_lstm(nn.Module):
         self.Wrm = nn.Linear(self.message_size, hidden_size)
         self.Wcm = nn.Linear(hidden_size, hidden_size)
         self.message_activation = nn.Sigmoid()
-        self.Wr = nn.Linear(self.message_size, hidden_size, bias = False) # no bias here according to Liu et al.
+        self.Wr = nn.Linear(self.message_size, hidden_size, bias=False) # no bias here according to Liu et al.
 
         self.hidden_activation = nn.Tanh()
 
