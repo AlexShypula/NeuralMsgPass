@@ -1,29 +1,19 @@
 import torch
 from torch import nn
 
-
 class message_lstm(nn.Module):
     def __init__(self, input_size: int, hidden_size: int, message_size: int = None, bias: bool = True, batch_first: bool = True, bidirectional: bool = False):
         """
         这就是大佬lstm， 只有大佬能够用
-
         In the constructor we instantiate two nn.Linear modules and assign them as
         member variables.
-
         input_size – The number of expected features in the input x
-
         hidden_size – The number of features in the hidden state h
-
         message_size – The number of features in the aggregated message r
-
         num_layers – Number of recurrent layers. E.g., setting num_layers=2 would mean stacking two LSTMs together to form a stacked LSTM, with the second LSTM taking in outputs of the first LSTM and computing the final results. Default: 1
-
         bias – If False, then the layer does not use bias weights b_ih and b_hh. Default: True
-
         batch_first – If True, then the input and output tensors are provided as (batch, seq, feature). Default: False
-
         dropout – If non-zero, introduces a Dropout layer on the outputs of each LSTM layer except the last layer, with dropout probability equal to dropout. Default: 0
-
         bidirectional – If True, becomes a bidirectional LSTM. Default: Fal
         """
         super(message_lstm, self).__init__()
@@ -39,7 +29,7 @@ class message_lstm(nn.Module):
         self.Ws = nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
         self.aggregate_activation = nn.Tanh()
-        self.softmax = nn.Softmax(dim=1)
+        # self.softmax = nn.Softmax(dim=1)
 
         # input gate
         self.Wii = nn.Linear(input_size, hidden_size, bias = bias)
@@ -69,12 +59,29 @@ class message_lstm(nn.Module):
 
         self.hidden_activation = nn.Tanh()
 
+    def masked_softmax(self, vec, mask, dim=1):
+        """masked softmax
+        
+        Arguments:
+            x {[torch.FloatTensor]} -- B x T x 1
+            mask {[torch.FloatTensor]} -- B x T
+        """
+        vec = vec.squeeze(dim=2)
+        masked_vec = vec * mask
+        max_vec = torch.max(masked_vec, dim=dim, keepdim=True)[0]
+        exps = torch.exp(masked_vec-max_vec)
+        masked_exps = exps * mask.float()
+        masked_sums = masked_exps.sum(dim, keepdim=True)
+        zeros=(masked_sums == 0)
+        masked_sums += zeros.float()
+        return masked_exps/masked_sums 
+
+        
     def _step(self, x_slice, r = None, state_h = None, state_c = None):
         """
         :params:
             x_slice: a B x input_size dimensional matrix (slice of a B x T x input_size tensor)
             r: aggregated message passed in via the neural message passing framework
-
         :return:
             output: hidden_state at timestep t
             state_h: hidden_state after 1 iteration
@@ -96,7 +103,7 @@ class message_lstm(nn.Module):
             h_tilde = self.hidden_activation(state_c)
             state_h = torch.mul(o, h_tilde)
         else:
-            m = self.message_actvation(self.Wrm(r) + self.Wcm(state_c))
+            m = self.message_activation(self.Wrm(r) + self.Wcm(state_c))
             R = self.Wr(r)
             M = torch.mul(m, R)
             h_tilde = self.hidden_activation(state_c + M)
@@ -106,7 +113,6 @@ class message_lstm(nn.Module):
 
     def forward(self, x):
         """
-
         """
         if self.batch_first is False:
             x = x.transpose(0,1)
@@ -119,5 +125,3 @@ class message_lstm(nn.Module):
         out = torch.stack(outputs, axis = 1)
         # out is of dim (B x T x H)
         return out
-
-

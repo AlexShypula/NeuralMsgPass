@@ -27,8 +27,8 @@ class sentimentDataset(Dataset):
                 for line in f:
                     l += 1
                     parsed = line.strip().split('\t')
-                    labels.append(int(parsed[0]))
-                    ids.append(torch.tensor(np.array([float(x) for x in parsed[1].split()]), dtype=torch.float32))
+                    labels.append(float(parsed[0]))
+                    ids.append(torch.LongTensor(np.array([int(x) for x in parsed[1].split()])))
             self.lengths.append(l)
             self.ids_list.append(ids)
             self.labels_list.append(labels)
