@@ -42,6 +42,8 @@ num_epoch = 10
 criterion = nn.BCELoss(reduction='mean')
 criterion = criterion.to(DEVICE)
 
+cur_valid_acc, best_valid_acc = 0.0, 0.0
+
 for e in range(num_epoch):
     model.train()
     before = time.time()
@@ -109,6 +111,11 @@ for e in range(num_epoch):
             val_corrects += val_correct
             val_count += val_x.size(0)
         val_end = time.time()
+        cur_valid_acc = val_corrects / val_count
+        if cur_valid_acc > best_valid_acc and cur_valid_acc > 0.7:
+            best_valid_acc = cur_valid_acc
+            print('@@@ Saving Best Model with Accuracy: {}% @@@\n'.format(cur_valid_acc))
+            torch.save(model, 'model.pt')
         print("loss: {:.3f}, accuracy: {:.3f}, Time elapsed: {} s".format(val_total_loss / val_count,
-                                                                          val_corrects / val_count,
+                                                                          cur_valid_acc,
                                                                           val_end - val_begin))
