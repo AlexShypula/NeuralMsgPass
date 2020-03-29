@@ -65,7 +65,7 @@ class message_lstm(nn.Module):
         self.Wrm = nn.Linear(self.message_size, hidden_size)
         self.Wcm = nn.Linear(hidden_size, hidden_size)
         self.message_activation = nn.Sigmoid()
-        self.Wr = nn.Linear(self.message_size, hidden_size, bias=False) # no bias here according to Liu et al.
+        self.Wr = nn.Linear(self.message_size, hidden_size, bias=False)  # no bias here according to Liu et al.
 
         self.hidden_activation = nn.Tanh()
 

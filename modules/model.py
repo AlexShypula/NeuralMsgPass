@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.utils.rnn as rnn
 from .message_lstm import message_lstm
+DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+import pdb
 
 
 class my_model(nn.Module):
@@ -46,21 +48,28 @@ class my_model(nn.Module):
 
     def forward(self, x, TASK):
 
-        padded_input = rnn.pad_sequence(x)
-        embeddings = self.embed(padded_input)
+        padded_input = rnn.pad_sequence(x, batch_first=True)
+        padded_input = padded_input.type(torch.LongTensor)
+        padded_input = padded_input.to(DEVICE)
+        embeddings = self.embed(padded_input)  # B x T x E
+        # pdb.set_trace()
 
-        shared_task_output, (h_shared, c_n) = self.share_lstm(embeddings)
-        h_task = torch.zero(embeddings.size(0), h_shared.size(1), self.hidden_size)
-        state_h = torch.zeros(embeddings.size(0), self.hidden_size)
-        state_c = torch.zeros(embeddings.size(0), self.hidden_size)
+        shared_task_output, (h_shared, c_n) = self.share_lstm(embeddings)  # h_shared: 1 x B x H
+        h_shared = h_shared.transpose(0, 1)  # batch first B x 1 x H
+        h_task = torch.zeros(embeddings.size(0), embeddings.size(1), self.hidden_size).to(DEVICE)  # B x T x H
+        state_h = torch.zeros(embeddings.size(0), self.hidden_size).to(DEVICE)  # B x H
+        state_c = torch.zeros(embeddings.size(0), self.hidden_size).to(DEVICE)  # B x H
 
-        task_specific_lstm = self.task_specific_lstm_list[TASK]
+        task_specific_lstm = self.task_specific_lstm_list[TASK].to(DEVICE)
         outputs = []
         # loop for the "decoder" or task specific layer
-        for t in range(h_shared.size(1)):
-            catted_input = torch.cat((h_shared, h_task, embeddings), dim = 2)
+        pdb.set_trace()
+
+        # loop through each time step
+        for t in range(embeddings.size(1)):
+            catted_input = torch.cat((shared_task_output, h_task, embeddings), dim=2)
             var1 = task_specific_lstm.Ws(catted_input)  # var 1 is B x T x H
-            var2 = task_specific_lstm.aggregation_activation(var1)  # var 1 is B x T x H
+            var2 = task_specific_lstm.aggregate_activation(var1)  # var 1 is B x T x H
             Si = task_specific_lstm.Us(var2)  # Si is B x T x 1
             B = task_specific_lstm.softmax(Si)  # B is B x T x 1, softmax over T
             norm_h_shared = torch.mul(B, h_shared)  # (B x T x 1 ) x (B x T x H) -> (B x T x H)
