@@ -22,7 +22,7 @@ for idx, task in enumerate(DATASETS):
     task_to_idx[task] = idx
 
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
-batch_size = 8
+batch_size = 4
 num_task = 16
 embedding_dim = 300
 hidden_size = 200
@@ -88,6 +88,12 @@ for e in range(num_epoch):
         print('*** epoch: {} validation begin ***'.format(e))
         val_begin = time.time()
         for val_batch_id, (val_x, val_y, task_type) in enumerate(val_loader):
+
+            # sometime the val_loader will somehow return empty val_x
+            # which will break pad_sequence
+            if len(val_x) == 0:
+                print('empty val_x')
+                continue
             val_x = rnn.pad_sequence(val_x, batch_first=True, padding_value=0)
             val_x = val_x.to(DEVICE)
             val_y = torch.tensor(val_y, dtype=torch.float32)
@@ -103,7 +109,6 @@ for e in range(num_epoch):
             val_corrects += val_correct
             val_count += val_x.size(0)
         val_end = time.time()
-        print("loss: {:.3f}, accuracy: {:.3f}, Time elapsed: {}".format(val_total_loss,
-                                                                    val_corrects/val_count,
-                                                                    val_begin-val_end))
-
+        print("loss: {:.3f}, accuracy: {:.3f}, Time elapsed: {} s".format(val_total_loss / val_count,
+                                                                          val_corrects / val_count,
+                                                                          val_end - val_begin))
