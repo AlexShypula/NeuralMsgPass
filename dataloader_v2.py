@@ -44,7 +44,7 @@ class sentimentDataset(Dataset):
                     l = line.strip().split('\t')
                     label, sentence = line.strip().split('\t')
                     if (len(sentence)) <= sentence_length_threshold:
-                        self.labels.append(int(label)) #TODO typecheck
+                        self.labels.append(float(label)) #TODO typecheck
                         sentence_tensor = torch.tensor([float(word_id) for word_id in sentence.split()], dtype = torch.long)
                         self.sentence_tensors.append(sentence_tensor)
                         n_added+=1
@@ -125,7 +125,7 @@ class batch_iterator:
                 sentences.append(sentence)
                 labels.append(label)
             #print(f"sentences are {sentences} and labels are {labels} and task is {task}")
-            yield sentences, torch.tensor(labels, dtype = torch.long), task
+            yield sentences, torch.tensor(labels, dtype = torch.float32), task
 
     def __len__(self):
         return self.number_batches
@@ -153,9 +153,9 @@ def get_datasets(train_batch_size, val_batch_size, test_batch_size, max_sentence
     _val_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL, max_sentence_length)
     _test_dataset = sentimentDataset(PATH_TO_DATA, DATASETS, MODE_VAL, max_sentence_length)
 
-    _train_loader = DataLoader(_train_dataset, train_batch_size, shuffle = True)
-    _val_loader = DataLoader(_val_dataset, val_batch_size, shuffle= False)
-    _test_loader = DataLoader(_test_dataset, test_batch_size, shuffle = False)
+    _train_loader = sentimentDataLoader(_train_dataset, train_batch_size, shuffle = True)
+    _val_loader = sentimentDataLoader(_val_dataset, val_batch_size, shuffle= False)
+    _test_loader = sentimentDataLoader(_test_dataset, test_batch_size, shuffle = False)
 
     return _train_loader, _val_loader, _test_loader
 

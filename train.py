@@ -7,7 +7,7 @@ import torch.nn.utils.rnn as rnn
 import torch.optim as optim
 import time
 import numpy as np
-from modules.model import my_model
+from modules.ic_model import my_model
 from dataloader_v2 import get_datasets
 import sys
 
@@ -51,11 +51,9 @@ for e in range(num_epoch):
     cum_loss = 0
     total = 0
     for batch_id, (train_x, train_y, task_type) in enumerate(train_loader):
-        pdb.set_trace()
         task_index = train_loader.dataset.task2idx[task_type]
         train_x = rnn.pad_sequence(train_x, batch_first=True, padding_value=0)
         train_x = train_x.to(DEVICE)
-        train_y = torch.tensor(train_y, dtype=torch.float32)
         train_y = train_y.to(DEVICE)
 
         mask = train_x != 0
