@@ -26,7 +26,7 @@ class message_lstm(nn.Module):
         self.batch_first = batch_first
         self.bidirectional = bidirectional
 
-        self.Ws = nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
+        self.Ws = nn.Linear(self.input_size + 3 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
         self.aggregate_activation = nn.Tanh()
         # self.softmax = nn.Softmax(dim=1)
@@ -58,6 +58,7 @@ class message_lstm(nn.Module):
         self.Wr = nn.Linear(self.message_size, hidden_size, bias=False) # no bias here according to Liu et al.
 
         self.hidden_activation = nn.Tanh()
+        self.fc = nn.Linear(self.hidden_size, 1)
 
     def masked_softmax(self, vec, mask, dim=1):
         """masked softmax

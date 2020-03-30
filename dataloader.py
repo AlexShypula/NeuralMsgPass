@@ -12,7 +12,7 @@ datasets = ['apparel','baby','books','camera_photo','dvd','electronics',
 
 class sentimentDataset(Dataset):
     
-    def __init__(self,mode, batch_size):  # mode is [train, val, test]
+    def __init__(self,mode, batch_size, max_len):  # mode is [train, val, test]
         self.mode = mode
         self.batch_size = batch_size
         self.ids_list = []  # 16 lists of sentence ids
@@ -25,10 +25,13 @@ class sentimentDataset(Dataset):
             l = 0
             with open('processed-dataset/' + dataset + '.' + mode) as f:
                 for line in f:
-                    l += 1
                     parsed = line.strip().split('\t')
+                    temp = np.array([int(x) for x in parsed[1].split()])
+                    if len(temp) > max_len:
+                        continue
+                    ids.append(torch.LongTensor(temp))
                     labels.append(float(parsed[0]))
-                    ids.append(torch.LongTensor(np.array([int(x) for x in parsed[1].split()])))
+                    l += 1
             self.lengths.append(l)
             self.ids_list.append(ids)
             self.labels_list.append(labels)
@@ -64,11 +67,11 @@ def collate_lines(seq_list):
     return inputs, targets, task_type
 
 
-def load_data(batch_size):
+def load_data(batch_size, max_len):
 
-    train_dataset = sentimentDataset("train", batch_size)
-    val_dataset = sentimentDataset("val", batch_size)
-    test_dataset = sentimentDataset("test", batch_size)
+    train_dataset = sentimentDataset("train", batch_size, max_len)
+    val_dataset = sentimentDataset("val", batch_size, max_len)
+    test_dataset = sentimentDataset("test", batch_size, max_len)
 
     train_loader = DataLoader(train_dataset, shuffle=True, batch_size=1, collate_fn=collate_lines)
     val_loader = DataLoader(val_dataset, shuffle=True, batch_size=1, collate_fn=collate_lines)
@@ -78,7 +81,7 @@ def load_data(batch_size):
 
 
 if __name__ == "__main__":
-    x, _, _ = load_data(8)
+    x, _, _ = load_data(8, 600)
     for i in x:
         _, _, task = i
         pdb.set_trace()
