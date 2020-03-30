@@ -130,17 +130,17 @@ class message_lstm_dc(nn.Module):
         dropout – If non-zero, introduces a Dropout layer on the outputs of each LSTM layer except the last layer, with dropout probability equal to dropout. Default: 0
         bidirectional – If True, becomes a bidirectional LSTM. Default: Fal
         """
-        super(message_lstm, self).__init__()
+        super(message_lstm_dc, self).__init__()
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.batch_first = batch_first
         self.bidirectional = bidirectional
 
-        self.Ws_p1 = torch.randn(hidden_size, hidden_size, dtype=torch.long, requires_grad=True)  #nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
-        self.Ws_p2 = torch.randn(hidden_size + input_size, hidden_size, dtype=torch.long, requires_grad=True)  # nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
+        self.Ws_p1 = torch.randn(hidden_size, hidden_size, dtype=torch.float32, requires_grad=True)  #nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
+        self.Ws_p2 = torch.randn(hidden_size + input_size, hidden_size, dtype=torch.float32, requires_grad=True)  # nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
         self.aggregate_activation = nn.Tanh()
-        #self.softmax = nn.Softmax(dim=1)
+        self.softmax = nn.Softmax(dim=1)
 
         # input gate
         self.Wii = nn.Linear(input_size, hidden_size, bias = bias)
@@ -175,22 +175,22 @@ class message_lstm_dc(nn.Module):
                                             nn.Linear(hidden_size, 1),
                                             nn.Sigmoid())
 
-    def masked_softmax(self, vec, mask, dim=1):
-        """masked softmax
-
-        Arguments:
-            x {[torch.FloatTensor]} -- B x T x 1
-            mask {[torch.FloatTensor]} -- B x T
-        """
-        vec = vec.squeeze(dim=2)
-        masked_vec = vec * mask
-        max_vec = torch.max(masked_vec, dim=dim, keepdim=True)[0]
-        exps = torch.exp(masked_vec - max_vec)
-        masked_exps = exps * mask.float()
-        masked_sums = masked_exps.sum(dim, keepdim=True)
-        zeros = (masked_sums == 0)
-        masked_sums += zeros.float()
-        return masked_exps / masked_sums
+    # def masked_softmax(self, vec, mask, dim=1):
+    #     """masked softmax
+    #
+    #     Arguments:
+    #         x {[torch.FloatTensor]} -- B x T x 1
+    #         mask {[torch.FloatTensor]} -- B x T
+    #     """
+    #     vec = vec.squeeze(dim=2)
+    #     masked_vec = vec * mask
+    #     max_vec = torch.max(masked_vec, dim=dim, keepdim=True)[0]
+    #     exps = torch.exp(masked_vec - max_vec)
+    #     masked_exps = exps * mask.float()
+    #     masked_sums = masked_exps.sum(dim, keepdim=True)
+    #     zeros = (masked_sums == 0)
+    #     masked_sums += zeros.float()
+    #     return masked_exps / masked_sums
 
     def _step(self, x_slice, r = None, state_h = None, state_c = None):
         """
@@ -218,7 +218,7 @@ class message_lstm_dc(nn.Module):
             h_tilde = self.hidden_activation(state_c)
             state_h = torch.mul(o, h_tilde)
         else:
-            m = self.message_actvation(self.Wrm(r) + self.Wcm(state_c))
+            m = self.message_activation(self.Wrm(r) + self.Wcm(state_c))
             R = self.Wr(r)
             M = torch.mul(m, R)
             h_tilde = self.hidden_activation(state_c + M)
