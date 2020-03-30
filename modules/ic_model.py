@@ -72,10 +72,11 @@ class my_model(nn.Module):
             h_task = state_h.unsqueeze(1)  # B x 1 x H
             h_task = h_task.repeat(1, shared_task_output.size(1), 1)  # state_h was B x H -> B x T x H
 
+        # pdb.set_trace()
+        # out = task_specific_lstm.fc(output)
         out = torch.stack(outputs, axis=1)  # B x T x H
-        # out = task_specific_lstm.fc(out)  # B x T x 1
-        # out = torch.max(out)  # B x 1 x 1
-        pdb.set_trace()
-        out = task_specific_lstm.fc(output)
+        out = task_specific_lstm.fc(out)  # B x T x 1
+        out = out.squeeze(2)  # B x T
+        out, _ = torch.max(out, 1, keepdim=True)  # B x 1
         out = self.sigmoid(out)
         return out
