@@ -107,6 +107,28 @@ class batch_iterator:
         else:
             return self.dataset.task_lengths[task_index] % self.batch_size, task_index, dataset_start_idx
 
+    def __call__(self, task_index):
+
+        beginning_index = self.task_first_batch_index[task_index]
+        last_index = self.task_last_batch_indices[task_index]
+        for i in range(beginning_index, last_index + 1): # add 1 for inclusive iteration
+            functional_batch_size, batch_task_index, dataset_start_idx = self.get_index_info(i)
+            try:
+                assert batch_task_index == task_index
+            except AssertionError as error:
+                print(f"error: {error}\nbatch_task_index is {batch_task_index} and task index is {task_index}")
+                print(f"batch task is {self.dataset.task2idx[batch_task_index]} and task is {self.dataset.task2idx[task_index]}")
+            sentences = []
+            labels = []
+            for j in range(functional_batch_size):
+                sentence, label, task = self.dataset[dataset_start_idx + j]
+                assert task == self.dataset.idx2task[task_index]
+                sentences.append(sentence)
+                labels.append(label)
+            # print(f"sentences are {sentences} and labels are {labels} and task is {task}")
+            yield sentences, torch.tensor(labels, dtype=torch.float32), task
+
+
     def __iter__(self):
         index_queue = list(range(self.number_batches))
 
@@ -143,6 +165,8 @@ class sentimentDataLoader(DataLoader):
         self.shuffle = shuffle
         self.iterator = batch_iterator(self.dataset, self.batch_size, self.shuffle)
 
+    def __call__(self, task_index):
+        yield from self.iterator(task_index)
 
     def __iter__(self):
         # concatenate your articles and build into batches
