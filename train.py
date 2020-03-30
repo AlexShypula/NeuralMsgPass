@@ -87,7 +87,7 @@ for e in range(num_epoch):
         del train_x
         del train_y
 
-        if batch_id != 0 and batch_id % 500 == 0:
+        if batch_id != 0 and batch_id % 900 == 0:
         # validation after each epoch
             with torch.no_grad():
                 model.eval()
