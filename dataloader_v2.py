@@ -43,7 +43,7 @@ class sentimentDataset(Dataset):
                 for line in f:
                     l = line.strip().split('\t')
                     label, sentence = line.strip().split('\t')
-                    if (len(sentence)) <= sentence_length_threshold:
+                    if (len(sentence.split())) <= sentence_length_threshold:
                         self.labels.append(int(label)) #TODO typecheck
                         sentence_tensor = torch.tensor([float(word_id) for word_id in sentence.split()], dtype = torch.long)
                         self.sentence_tensors.append(sentence_tensor)
@@ -125,7 +125,7 @@ class batch_iterator:
                 sentences.append(sentence)
                 labels.append(label)
             #print(f"sentences are {sentences} and labels are {labels} and task is {task}")
-            yield sentences, torch.tensor(labels, dtype = torch.long), task
+            yield sentences, torch.tensor(labels, dtype = torch.float32), task
 
     def __len__(self):
         return self.number_batches
