@@ -26,7 +26,7 @@ class message_lstm(nn.Module):
         self.batch_first = batch_first
         self.bidirectional = bidirectional
 
-        self.Ws = nn.Linear(self.input_size + 2 * self.hidden_size, self.hidden_size)
+        self.Ws = nn.Linear(self.input_size + 3 * self.hidden_size, self.hidden_size)
         self.Us = nn.Linear(self.hidden_size, 1)
         self.aggregate_activation = nn.Tanh()
         # self.softmax = nn.Softmax(dim=1)
