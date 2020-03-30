@@ -1,1 +1,5 @@
 processed-dataset/embedding.pkl
+.idea/
+.DS_Store
+.vscode/
+
