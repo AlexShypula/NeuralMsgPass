@@ -1,12 +1,6 @@
 import torch
-import torch.nn.functional as F
-import torch
-import torch.nn as nn
 import torch.nn.utils.rnn as rnn
-import torch.optim as optim
-import time
 import numpy as np
-from modules.ic_model import my_model
 from dataloader_v2 import get_datasets
 import sys
 import os
