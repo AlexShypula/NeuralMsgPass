@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.utils.rnn as rnn
+import torch.nn.functional as F
 from .message_lstm import message_lstm
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 import pdb
@@ -34,13 +35,12 @@ class my_model(nn.Module):
         self.embed.weight.requires_grad=True
         self.share_lstm = nn.LSTM(self.embed_dim, self.hidden_size,
                                   num_layers=1, batch_first=self.batch_first, bidirectional=True)
-        self.task_specific_lstm_list = [message_lstm(self.embed_dim,
+        self.task_specific_lstm_list = nn.ModuleList([message_lstm(self.embed_dim,
                                                      self.hidden_size,
                                                      self.message_size,
                                                      self.bias,
                                                      self.batch_first,
-                                                     self.bidirectional)] * self.num_tasks
-
+                                                     self.bidirectional)] * self.num_tasks)
         self.sigmoid = nn.Sigmoid()
 
     def forward(self, x, mask, TASK):
@@ -71,8 +71,10 @@ class my_model(nn.Module):
             outputs.append(output)
             h_task = state_h.unsqueeze(1)  # B x 1 x H
             h_task = h_task.repeat(1, shared_task_output.size(1), 1)  # state_h was B x H -> B x T x H
-            # pdb.set_trace()
-        # out = torch.stack(outputs, axis=1)
+        # pdb.set_trace()
+        out = torch.stack(outputs, axis=2) # B x H x T
+        out = F.avg_pool1d(out, out.size(2))
+        out = out.squeeze(2)
         out = task_specific_lstm.fc(output)
         out = self.sigmoid(out)
         return out
