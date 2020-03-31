@@ -23,11 +23,10 @@ embedding_dim = 300
 hidden_size = 200
 message_size = 2 * hidden_size
 
-#train_loader, val_loader, test_loader = load_data(batch_size=batch_size)
-train_loader, val_loader, test_loader = get_datasets(train_batch_size = batch_size,
-                                                     val_batch_size = batch_size,
-                                                     test_batch_size = batch_size,
-                                                     max_sentence_length = MAX_SENTENCE_LENGTH)
+train_loader, val_loader, test_loader = get_datasets(train_batch_size=batch_size,
+                                                     val_batch_size=batch_size,
+                                                     test_batch_size=batch_size,
+                                                     max_sentence_length=MAX_SENTENCE_LENGTH)
 
 with open('processed-dataset/embedding.pkl', 'rb') as f:
     pre_trained_embedding = pickle.load(f)
@@ -100,7 +99,6 @@ for e in range(num_epoch):
                     # which will break pad_sequence
                     task_index = train_loader.dataset.task2idx[task_type]
                     if len(val_x) == 0:
-                        print('empty val_x')
                         continue
                     val_x = rnn.pad_sequence(val_x, batch_first=True, padding_value=0)
                     val_x = val_x.to(DEVICE)

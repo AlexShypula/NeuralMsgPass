@@ -58,7 +58,7 @@ for task_index, task in enumerate(DATASETS):
         model = torch.load(os.path.join(model_folder, model_name))
 
         print(f"Model loaded from: {os.path.join(model_folder, model_name)}")
-        mkdir(os.path.join(model_folder, "fine_tune", task ))
+        mkdir(os.path.join(model_folder, "fine_tune", task))
         fine_tune = True
 
     else:

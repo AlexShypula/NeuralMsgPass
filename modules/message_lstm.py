@@ -1,8 +1,10 @@
 import torch
 from torch import nn
 
+
 class message_lstm(nn.Module):
-    def __init__(self, input_size: int, hidden_size: int, message_size: int = None, bias: bool = True, batch_first: bool = True, bidirectional: bool = False):
+    def __init__(self, input_size: int, hidden_size: int, message_size: int = None, bias: bool = True,
+                 batch_first: bool = True, bidirectional: bool = False):
         """
         这就是大佬lstm， 只有大佬能够用
         In the constructor we instantiate two nn.Linear modules and assign them as
@@ -32,8 +34,8 @@ class message_lstm(nn.Module):
         # self.softmax = nn.Softmax(dim=1)
 
         # input gate
-        self.Wii = nn.Linear(input_size, hidden_size, bias = bias)
-        self.Whi = nn.Linear(hidden_size, hidden_size, bias = bias)
+        self.Wii = nn.Linear(input_size, hidden_size, bias=bias)
+        self.Whi = nn.Linear(hidden_size, hidden_size, bias=bias)
         self.input_activation = nn.Sigmoid()
 
         # forget gate
@@ -42,20 +44,20 @@ class message_lstm(nn.Module):
         self.forget_activation = nn.Sigmoid()
 
         # cell gate
-        self.Wig = nn.Linear(input_size, hidden_size, bias = bias)
+        self.Wig = nn.Linear(input_size, hidden_size, bias=bias)
         self.Whg = nn.Linear(hidden_size, hidden_size, bias=bias)
         self.cell_activation = nn.Tanh()
 
         # output gate
-        self.Wio = nn.Linear(input_size, hidden_size, bias = bias)
-        self.Who = nn.Linear(hidden_size, hidden_size, bias = bias)
+        self.Wio = nn.Linear(input_size, hidden_size, bias=bias)
+        self.Who = nn.Linear(hidden_size, hidden_size, bias=bias)
         self.output_activation = nn.Sigmoid()
 
         # message gate
         self.Wrm = nn.Linear(self.message_size, hidden_size)
         self.Wcm = nn.Linear(hidden_size, hidden_size)
         self.message_activation = nn.Sigmoid()
-        self.Wr = nn.Linear(self.message_size, hidden_size, bias=False) # no bias here according to Liu et al.
+        self.Wr = nn.Linear(self.message_size, hidden_size, bias=False)  # no bias here according to Liu et al.
 
         self.hidden_activation = nn.Tanh()
         self.fc = nn.Linear(self.hidden_size, 1)
@@ -70,15 +72,14 @@ class message_lstm(nn.Module):
         vec = vec.squeeze(dim=2)
         masked_vec = vec * mask
         max_vec = torch.max(masked_vec, dim=dim, keepdim=True)[0]
-        exps = torch.exp(masked_vec-max_vec)
+        exps = torch.exp(masked_vec - max_vec)
         masked_exps = exps * mask.float()
         masked_sums = masked_exps.sum(dim, keepdim=True)
-        zeros=(masked_sums == 0)
+        zeros = (masked_sums == 0)
         masked_sums += zeros.float()
-        return masked_exps/masked_sums 
+        return masked_exps / masked_sums
 
-        
-    def _step(self, x_slice, r = None, state_h = None, state_c = None):
+    def _step(self, x_slice, r=None, state_h=None, state_c=None):
         """
         :params:
             x_slice: a B x input_size dimensional matrix (slice of a B x T x input_size tensor)
@@ -111,18 +112,17 @@ class message_lstm(nn.Module):
             state_h = torch.mul(o, h_tilde)
         return state_h, state_h, state_c
 
-
     def forward(self, x):
         """
         """
         if self.batch_first is False:
-            x = x.transpose(0,1)
+            x = x.transpose(0, 1)
         state_h = state_c = None
         outputs = []
         for i in range(x.shape[1]):
-            output, state_h, state_c = self._step(x[:, i, :], state_h = state_h, state_c = state_c)
+            output, state_h, state_c = self._step(x[:, i, :], state_h=state_h, state_c=state_c)
             outputs.append(output)
 
-        out = torch.stack(outputs, axis = 1)
+        out = torch.stack(outputs, axis=1)
         # out is of dim (B x T x H)
         return out

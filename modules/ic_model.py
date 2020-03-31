@@ -86,6 +86,7 @@ class my_model(nn.Module):
         out = torch.stack(outputs, axis=1)  # B x T x H
         out = task_specific_lstm.fc(out)  # B x T x 1
         out = out.squeeze(2)  # B x T
+        # out = torch.where
         out, _ = torch.max(out, 1, keepdim=True)  # B x 1
         out = self.sigmoid(out)
         return out
