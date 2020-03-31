@@ -42,6 +42,20 @@ class my_model(nn.Module):
                                                      self.batch_first,
                                                      self.bidirectional)] * self.num_tasks)
         self.sigmoid = nn.Sigmoid()
+    
+    def avgpool(self, x, mask):
+        """do avg pool on time dimension
+        
+        Arguments:
+            x {torch.FloatTensoro} -- hidden output from task specific lstm of shap B x T x H
+            mask {[torch.FloatTensor]} -- B x T
+        """
+        summed = torch.sum(mask, 1) # B
+        mask = mask.unsqueeze(2)
+        x = x * mask # B T H
+        x = torch.sum(x, 1) # B H
+        x = x / summed.unsqueeze(1)
+        return x
 
     def forward(self, x, mask, TASK):
 
@@ -71,10 +85,9 @@ class my_model(nn.Module):
             outputs.append(output)
             h_task = state_h.unsqueeze(1)  # B x 1 x H
             h_task = h_task.repeat(1, shared_task_output.size(1), 1)  # state_h was B x H -> B x T x H
+        out = torch.stack(outputs, axis=1) # B x T x H
         # pdb.set_trace()
-        out = torch.stack(outputs, axis=2) # B x H x T
-        out = F.avg_pool1d(out, out.size(2))
-        out = out.squeeze(2)
-        out = task_specific_lstm.fc(output)
+        out = self.avgpool(out, mask)
+        out = task_specific_lstm.fc(out)
         out = self.sigmoid(out)
         return out
