@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.utils.rnn as rnn
 from .message_lstm import message_lstm
+
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 import pdb
 
@@ -31,15 +32,22 @@ class my_model(nn.Module):
 
         self.embed = nn.Embedding(self.input_size, self.embed_dim)
         self.embed.weight.data.copy_(pretrained_embedding)
-        self.embed.weight.requires_grad=True
+        self.embed.weight.requires_grad = True
         self.share_lstm = nn.LSTM(self.embed_dim, self.hidden_size,
                                   num_layers=1, batch_first=self.batch_first, bidirectional=True)
-        self.task_specific_lstm_list = nn.ModuleList([message_lstm(self.embed_dim,
-                                                     self.hidden_size,
-                                                     self.message_size,
-                                                     self.bias,
-                                                     self.batch_first,
-                                                     self.bidirectional)] * self.num_tasks)
+        # self.task_specific_lstm_list = nn.ModuleList([message_lstm(self.embed_dim,
+        #                                                            self.hidden_size,
+        #                                                            self.message_size,
+        #                                                            self.bias,
+        #                                                            self.batch_first,
+        #                                                            self.bidirectional)] * self.num_tasks)
+        for _ in range(self.num_tasks):
+            self.task_specific_lstm_list.append(message_lstm(self.embed_dim,
+                                                             self.hidden_size,
+                                                             self.message_size,
+                                                             self.bias,
+                                                             self.batch_first,
+                                                             self.bidirectional))
 
         self.sigmoid = nn.Sigmoid()
 
@@ -65,7 +73,7 @@ class my_model(nn.Module):
             Si = task_specific_lstm.Us(var2)  # Si is B x T x 1
             B = task_specific_lstm.masked_softmax(Si, mask)  # B is B x T x 1, softmax over T
             B = B.unsqueeze(2)
-            norm_h_shared = B * shared_task_output # B x T x 2H
+            norm_h_shared = B * shared_task_output  # B x T x 2H
             Rt = torch.sum(norm_h_shared, dim=1)  # (B x 2H)
             output, state_h, state_c = task_specific_lstm._step(embeddings[:, t, :], Rt, state_h, state_c)
             outputs.append(output)
