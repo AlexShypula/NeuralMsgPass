@@ -41,6 +41,7 @@ class my_model(nn.Module):
         #                                                            self.bias,
         #                                                            self.batch_first,
         #                                                            self.bidirectional)] * self.num_tasks)
+        self.task_specific_lstm_list = nn.ModuleList()
         for _ in range(self.num_tasks):
             self.task_specific_lstm_list.append(message_lstm(self.embed_dim,
                                                              self.hidden_size,
