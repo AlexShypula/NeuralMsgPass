@@ -92,7 +92,7 @@ for task_index, task in enumerate(DATASETS):
             train_y = train_y.to(DEVICE)
 
             mask = train_x != 0
-            mask = mask.float()
+            mask = mask.float()  # B x T
             outputs = model(train_x, mask, task_index)
             loss = criterion(outputs.view(-1),train_y.view(-1))
             binary_outputs = np.where(outputs.view(-1).data.cpu().numpy() > 0.5, 1, 0)
