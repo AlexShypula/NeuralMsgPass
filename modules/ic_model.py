@@ -35,12 +35,20 @@ class my_model(nn.Module):
         self.embed.weight.requires_grad=True
         self.share_lstm = nn.LSTM(self.embed_dim, self.hidden_size,
                                   num_layers=1, batch_first=self.batch_first, bidirectional=True)
-        self.task_specific_lstm_list = nn.ModuleList([message_lstm(self.embed_dim,
+        self.task_specific_lstm_list = nn.ModuleList()
+        for _ in range(self.num_tasks):
+            self.task_specific_lstm_list.append(message_lstm(self.embed_dim,
                                                      self.hidden_size,
                                                      self.message_size,
                                                      self.bias,
                                                      self.batch_first,
-                                                     self.bidirectional)] * self.num_tasks)
+                                                     self.bidirectional))
+        # self.task_specific_lstm_list = nn.ModuleList([message_lstm(self.embed_dim,
+        #                                              self.hidden_size,
+        #                                              self.message_size,
+        #                                              self.bias,
+        #                                              self.batch_first,
+        #                                              self.bidirectional)] * self.num_tasks)
         self.sigmoid = nn.Sigmoid()
     
     def avgpool(self, x, mask):

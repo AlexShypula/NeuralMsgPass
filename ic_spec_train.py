@@ -43,7 +43,7 @@ model_name = "model.pt"
 
 mkdir(model_folder)
 
-num_epoch = 3
+num_epoch = 2
 
 criterion = nn.BCELoss(reduction='mean')
 criterion = criterion.to(DEVICE)
