@@ -1,0 +1,194 @@
+Batch [50/2733], loss: 0.722, accuracy: 0.498, Time elapsed: 110.1375379562378
+Batch [100/2733], loss: 0.712, accuracy: 0.496, Time elapsed: 102.29410934448242
+Batch [150/2733], loss: 0.708, accuracy: 0.542, Time elapsed: 130.4644227027893
+Batch [200/2733], loss: 0.739, accuracy: 0.522, Time elapsed: 122.37004399299622
+Batch [250/2733], loss: 0.707, accuracy: 0.510, Time elapsed: 120.16570615768433
+Batch [300/2733], loss: 0.690, accuracy: 0.558, Time elapsed: 98.73696208000183
+Batch [350/2733], loss: 0.662, accuracy: 0.655, Time elapsed: 116.42586970329285
+Batch [400/2733], loss: 0.695, accuracy: 0.575, Time elapsed: 97.24370193481445
+Batch [450/2733], loss: 0.680, accuracy: 0.578, Time elapsed: 130.1955587863922
+Batch [500/2733], loss: 0.675, accuracy: 0.632, Time elapsed: 108.45019841194153
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.6145269194010832% @@@
+
+loss: 0.083, accuracy: 0.615, Time elapsed: 128.25319480895996 s
+Batch [550/2733], loss: 0.646, accuracy: 0.647, Time elapsed: 246.2709345817566
+Batch [600/2733], loss: 0.606, accuracy: 0.685, Time elapsed: 119.28902053833008
+Batch [650/2733], loss: 0.649, accuracy: 0.660, Time elapsed: 104.62557029724121
+Batch [700/2733], loss: 0.677, accuracy: 0.620, Time elapsed: 123.52057981491089
+Batch [750/2733], loss: 0.643, accuracy: 0.688, Time elapsed: 100.30129909515381
+Batch [800/2733], loss: 0.640, accuracy: 0.639, Time elapsed: 102.7985007762909
+Batch [850/2733], loss: 0.628, accuracy: 0.672, Time elapsed: 95.93331503868103
+Batch [900/2733], loss: 0.598, accuracy: 0.688, Time elapsed: 105.36411499977112
+Batch [950/2733], loss: 0.608, accuracy: 0.663, Time elapsed: 95.99967670440674
+Batch [1000/2733], loss: 0.566, accuracy: 0.708, Time elapsed: 114.11583018302917
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.7441860465116279% @@@
+
+loss: 0.070, accuracy: 0.744, Time elapsed: 129.7773699760437 s
+Batch [1050/2733], loss: 0.535, accuracy: 0.757, Time elapsed: 227.99987173080444
+Batch [1100/2733], loss: 0.571, accuracy: 0.754, Time elapsed: 86.3370270729065
+Batch [1150/2733], loss: 0.579, accuracy: 0.718, Time elapsed: 94.2219512462616
+Batch [1200/2733], loss: 0.524, accuracy: 0.728, Time elapsed: 116.8423752784729
+Batch [1250/2733], loss: 0.582, accuracy: 0.708, Time elapsed: 99.1679904460907
+Batch [1300/2733], loss: 0.523, accuracy: 0.772, Time elapsed: 89.53592681884766
+Batch [1350/2733], loss: 0.497, accuracy: 0.792, Time elapsed: 102.54635643959045
+Batch [1400/2733], loss: 0.550, accuracy: 0.743, Time elapsed: 100.77726769447327
+Batch [1450/2733], loss: 0.528, accuracy: 0.770, Time elapsed: 94.87636041641235
+Batch [1500/2733], loss: 0.466, accuracy: 0.787, Time elapsed: 119.00867128372192
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.7983434214718063% @@@
+
+loss: 0.058, accuracy: 0.798, Time elapsed: 129.81880712509155 s
+Batch [1550/2733], loss: 0.490, accuracy: 0.790, Time elapsed: 222.7663471698761
+Batch [1600/2733], loss: 0.471, accuracy: 0.785, Time elapsed: 108.30023550987244
+Batch [1650/2733], loss: 0.493, accuracy: 0.777, Time elapsed: 108.30723810195923
+Batch [1700/2733], loss: 0.489, accuracy: 0.762, Time elapsed: 121.88865327835083
+Batch [1750/2733], loss: 0.509, accuracy: 0.774, Time elapsed: 117.80190706253052
+Batch [1800/2733], loss: 0.454, accuracy: 0.797, Time elapsed: 107.85945439338684
+Batch [1850/2733], loss: 0.484, accuracy: 0.777, Time elapsed: 95.83402371406555
+Batch [1900/2733], loss: 0.477, accuracy: 0.807, Time elapsed: 113.36066746711731
+Batch [1950/2733], loss: 0.404, accuracy: 0.858, Time elapsed: 113.35266590118408
+Batch [2000/2733], loss: 0.455, accuracy: 0.790, Time elapsed: 116.31335830688477
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8388021662949984% @@@
+
+loss: 0.049, accuracy: 0.839, Time elapsed: 132.62575936317444 s
+Batch [2050/2733], loss: 0.373, accuracy: 0.826, Time elapsed: 234.08913445472717
+Batch [2100/2733], loss: 0.533, accuracy: 0.760, Time elapsed: 111.46177124977112
+Batch [2150/2733], loss: 0.571, accuracy: 0.735, Time elapsed: 106.61369204521179
+Batch [2200/2733], loss: 0.446, accuracy: 0.807, Time elapsed: 99.88860034942627
+Batch [2250/2733], loss: 0.429, accuracy: 0.830, Time elapsed: 107.84787106513977
+Batch [2300/2733], loss: 0.415, accuracy: 0.823, Time elapsed: 105.37841558456421
+Batch [2350/2733], loss: 0.450, accuracy: 0.806, Time elapsed: 111.45584678649902
+Batch [2400/2733], loss: 0.428, accuracy: 0.812, Time elapsed: 94.46522569656372
+Batch [2450/2733], loss: 0.431, accuracy: 0.805, Time elapsed: 115.35638284683228
+Batch [2500/2733], loss: 0.822, accuracy: 0.610, Time elapsed: 112.80033254623413
+*** epoch: 0 validation begin ***
+loss: 0.077, accuracy: 0.693, Time elapsed: 131.49231481552124 s
+Batch [2550/2733], loss: 0.597, accuracy: 0.680, Time elapsed: 214.61303853988647
+Batch [2600/2733], loss: 0.571, accuracy: 0.730, Time elapsed: 109.06911969184875
+Batch [2650/2733], loss: 0.507, accuracy: 0.772, Time elapsed: 95.55636024475098
+Batch [2700/2733], loss: 0.513, accuracy: 0.778, Time elapsed: 108.3581657409668
+Batch [50/2733], loss: 0.483, accuracy: 0.787, Time elapsed: 94.31377506256104
+Batch [100/2733], loss: 0.418, accuracy: 0.823, Time elapsed: 110.38346886634827
+Batch [150/2733], loss: 0.433, accuracy: 0.815, Time elapsed: 103.53251838684082
+Batch [200/2733], loss: 0.494, accuracy: 0.770, Time elapsed: 106.92745471000671
+Batch [250/2733], loss: 0.482, accuracy: 0.770, Time elapsed: 79.12881112098694
+Batch [300/2733], loss: 0.435, accuracy: 0.810, Time elapsed: 101.61669611930847
+Batch [350/2733], loss: 0.390, accuracy: 0.838, Time elapsed: 136.75238847732544
+Batch [400/2733], loss: 0.615, accuracy: 0.705, Time elapsed: 103.40667581558228
+Batch [450/2733], loss: 0.529, accuracy: 0.748, Time elapsed: 87.25559616088867
+Batch [500/2733], loss: 0.459, accuracy: 0.787, Time elapsed: 105.22042846679688
+*** epoch: 1 validation begin ***
+loss: 0.060, accuracy: 0.782, Time elapsed: 132.86887764930725 s
+Batch [550/2733], loss: 0.453, accuracy: 0.802, Time elapsed: 223.42576026916504
+Batch [600/2733], loss: 0.418, accuracy: 0.807, Time elapsed: 101.49307632446289
+Batch [650/2733], loss: 0.429, accuracy: 0.802, Time elapsed: 104.3852801322937
+Batch [700/2733], loss: 0.509, accuracy: 0.775, Time elapsed: 116.33252882957458
+Batch [750/2733], loss: 0.455, accuracy: 0.815, Time elapsed: 122.64703726768494
+Batch [800/2733], loss: 0.437, accuracy: 0.802, Time elapsed: 98.34965634346008
+Batch [850/2733], loss: 0.418, accuracy: 0.824, Time elapsed: 109.619544506073
+Batch [900/2733], loss: 0.418, accuracy: 0.833, Time elapsed: 119.48021745681763
+Batch [950/2733], loss: 0.415, accuracy: 0.805, Time elapsed: 111.69044351577759
+Batch [1000/2733], loss: 0.400, accuracy: 0.826, Time elapsed: 106.37335896492004
+*** epoch: 1 validation begin ***
+loss: 0.058, accuracy: 0.781, Time elapsed: 128.62971305847168 s
+Batch [1050/2733], loss: 0.447, accuracy: 0.782, Time elapsed: 248.41733503341675
+Batch [1100/2733], loss: 0.384, accuracy: 0.828, Time elapsed: 102.10424900054932
+Batch [1150/2733], loss: 0.395, accuracy: 0.810, Time elapsed: 120.83842730522156
+Batch [1200/2733], loss: 0.367, accuracy: 0.828, Time elapsed: 97.72829246520996
+Batch [1250/2733], loss: 0.507, accuracy: 0.765, Time elapsed: 101.72195363044739
+Batch [1300/2733], loss: 0.407, accuracy: 0.810, Time elapsed: 103.66235375404358
+Batch [1350/2733], loss: 0.380, accuracy: 0.839, Time elapsed: 102.68649053573608
+Batch [1400/2733], loss: 0.423, accuracy: 0.828, Time elapsed: 104.26836133003235
+Batch [1450/2733], loss: 0.380, accuracy: 0.831, Time elapsed: 113.4959762096405
+Batch [1500/2733], loss: 0.398, accuracy: 0.828, Time elapsed: 115.15801525115967
+*** epoch: 1 validation begin ***
+loss: 0.056, accuracy: 0.796, Time elapsed: 130.8430848121643 s
+Batch [1550/2733], loss: 0.397, accuracy: 0.812, Time elapsed: 232.66266798973083
+Batch [1600/2733], loss: 0.423, accuracy: 0.823, Time elapsed: 119.57751059532166
+Batch [1650/2733], loss: 0.388, accuracy: 0.832, Time elapsed: 88.81636643409729
+Batch [1700/2733], loss: 0.415, accuracy: 0.825, Time elapsed: 107.57974433898926
+Batch [1750/2733], loss: 0.390, accuracy: 0.830, Time elapsed: 101.62137246131897
+Batch [1800/2733], loss: 0.408, accuracy: 0.830, Time elapsed: 114.53416728973389
+Batch [1850/2733], loss: 0.426, accuracy: 0.825, Time elapsed: 99.2365403175354
+Batch [1900/2733], loss: 0.460, accuracy: 0.797, Time elapsed: 106.926260471344
+Batch [1950/2733], loss: 0.384, accuracy: 0.858, Time elapsed: 99.32421779632568
+Batch [2000/2733], loss: 0.369, accuracy: 0.823, Time elapsed: 107.46865367889404
+*** epoch: 1 validation begin ***
+loss: 0.053, accuracy: 0.815, Time elapsed: 127.98901748657227 s
+Batch [2050/2733], loss: 0.469, accuracy: 0.792, Time elapsed: 251.90550470352173
+Batch [2100/2733], loss: 0.436, accuracy: 0.812, Time elapsed: 89.54368090629578
+Batch [2150/2733], loss: 0.359, accuracy: 0.856, Time elapsed: 95.10628914833069
+Batch [2200/2733], loss: 0.353, accuracy: 0.863, Time elapsed: 105.7052206993103
+Batch [2250/2733], loss: 0.395, accuracy: 0.843, Time elapsed: 111.4930648803711
+Batch [2300/2733], loss: 0.442, accuracy: 0.800, Time elapsed: 113.58263897895813
+Batch [2350/2733], loss: 0.327, accuracy: 0.863, Time elapsed: 96.58048963546753
+Batch [2400/2733], loss: 0.412, accuracy: 0.826, Time elapsed: 91.3950879573822
+Batch [2450/2733], loss: 0.385, accuracy: 0.828, Time elapsed: 106.15977191925049
+Batch [2500/2733], loss: 0.414, accuracy: 0.812, Time elapsed: 133.5689935684204
+*** epoch: 1 validation begin ***
+loss: 0.059, accuracy: 0.803, Time elapsed: 132.1828441619873 s
+Batch [2550/2733], loss: 0.357, accuracy: 0.868, Time elapsed: 253.1586275100708
+Batch [2600/2733], loss: 0.451, accuracy: 0.799, Time elapsed: 86.32762122154236
+Batch [2650/2733], loss: 0.370, accuracy: 0.850, Time elapsed: 107.16494989395142
+Batch [2700/2733], loss: 0.379, accuracy: 0.825, Time elapsed: 108.24113917350769
+Batch [50/2733], loss: 0.323, accuracy: 0.877, Time elapsed: 115.17944765090942
+Batch [100/2733], loss: 0.274, accuracy: 0.910, Time elapsed: 106.93030667304993
+Batch [150/2733], loss: 0.220, accuracy: 0.915, Time elapsed: 109.38544964790344
+Batch [200/2733], loss: 0.279, accuracy: 0.890, Time elapsed: 115.90440917015076
+Batch [250/2733], loss: 0.299, accuracy: 0.890, Time elapsed: 84.14519953727722
+Batch [300/2733], loss: 0.307, accuracy: 0.889, Time elapsed: 104.69883799552917
+Batch [350/2733], loss: 0.308, accuracy: 0.897, Time elapsed: 115.75105619430542
+Batch [400/2733], loss: 0.294, accuracy: 0.869, Time elapsed: 105.4168541431427
+Batch [450/2733], loss: 0.273, accuracy: 0.900, Time elapsed: 116.63514256477356
+Batch [500/2733], loss: 0.262, accuracy: 0.902, Time elapsed: 106.62626242637634
+*** epoch: 2 validation begin ***
+loss: 0.055, accuracy: 0.819, Time elapsed: 133.36097931861877 s
+Batch [550/2733], loss: 0.287, accuracy: 0.887, Time elapsed: 238.9354395866394
+Batch [600/2733], loss: 0.297, accuracy: 0.882, Time elapsed: 101.3887197971344
+Batch [650/2733], loss: 0.251, accuracy: 0.911, Time elapsed: 100.61766743659973
+Batch [700/2733], loss: 0.249, accuracy: 0.905, Time elapsed: 93.34116077423096
+Batch [750/2733], loss: 0.292, accuracy: 0.890, Time elapsed: 109.41064262390137
+Batch [800/2733], loss: 0.290, accuracy: 0.885, Time elapsed: 115.08931946754456
+Batch [850/2733], loss: 0.313, accuracy: 0.882, Time elapsed: 94.54193258285522
+Batch [900/2733], loss: 0.278, accuracy: 0.890, Time elapsed: 96.75422883033752
+Batch [950/2733], loss: 0.297, accuracy: 0.885, Time elapsed: 118.61931610107422
+Batch [1000/2733], loss: 0.319, accuracy: 0.871, Time elapsed: 119.25174450874329
+*** epoch: 2 validation begin ***
+loss: 0.057, accuracy: 0.803, Time elapsed: 135.03098464012146 s
+Batch [1050/2733], loss: 0.307, accuracy: 0.873, Time elapsed: 228.26329922676086
+Batch [1100/2733], loss: 0.273, accuracy: 0.890, Time elapsed: 85.11651110649109
+Batch [1150/2733], loss: 0.261, accuracy: 0.910, Time elapsed: 108.57471823692322
+Batch [1200/2733], loss: 0.264, accuracy: 0.902, Time elapsed: 112.65607380867004
+Batch [1250/2733], loss: 0.314, accuracy: 0.868, Time elapsed: 105.51839900016785
+Batch [1300/2733], loss: 0.334, accuracy: 0.880, Time elapsed: 102.69106364250183
+Batch [1350/2733], loss: 0.241, accuracy: 0.912, Time elapsed: 119.19435524940491
+Batch [1400/2733], loss: 0.284, accuracy: 0.868, Time elapsed: 124.37353563308716
+Batch [1450/2733], loss: 0.268, accuracy: 0.895, Time elapsed: 112.19671392440796
+Batch [1500/2733], loss: 0.257, accuracy: 0.895, Time elapsed: 86.20808815956116
+*** epoch: 2 validation begin ***
+loss: 0.054, accuracy: 0.822, Time elapsed: 129.70683646202087 s
+Batch [1550/2733], loss: 0.341, accuracy: 0.850, Time elapsed: 234.93115782737732
+Batch [1600/2733], loss: 0.242, accuracy: 0.907, Time elapsed: 101.02052855491638
+Batch [1650/2733], loss: 0.244, accuracy: 0.902, Time elapsed: 125.6613199710846
+Batch [1700/2733], loss: 0.299, accuracy: 0.882, Time elapsed: 113.4894871711731
+Batch [1750/2733], loss: 0.251, accuracy: 0.898, Time elapsed: 112.52796912193298
+Batch [1800/2733], loss: 0.329, accuracy: 0.879, Time elapsed: 110.4928572177887
+Batch [1850/2733], loss: 0.267, accuracy: 0.905, Time elapsed: 103.4477117061615
+Batch [1900/2733], loss: 0.301, accuracy: 0.868, Time elapsed: 119.44903469085693
+Batch [1950/2733], loss: 0.310, accuracy: 0.860, Time elapsed: 101.4189100265503
+Batch [2000/2733], loss: 0.269, accuracy: 0.897, Time elapsed: 96.92543435096741
+*** epoch: 2 validation begin ***
+loss: 0.051, accuracy: 0.827, Time elapsed: 132.6335415840149 s
+Batch [2050/2733], loss: 0.228, accuracy: 0.902, Time elapsed: 251.93216347694397
+Batch [2100/2733], loss: 0.316, accuracy: 0.877, Time elapsed: 101.78606581687927
+Batch [2150/2733], loss: 0.284, accuracy: 0.878, Time elapsed: 130.45033526420593
+Batch [2200/2733], loss: 0.267, accuracy: 0.907, Time elapsed: 119.50177955627441
+Batch [2250/2733], loss: 0.278, accuracy: 0.875, Time elapsed: 96.3525619506836
+Batch [2300/2733], loss: 0.245, accuracy: 0.895, Time elapsed: 94.80023193359375
+Batch [2350/2733], loss: 0.258, accuracy: 0.910, Time elapsed: 116.57994556427002
+Batch [2400/2733], loss: 0.260, accuracy: 0.895, Time elapsed: 116.16337704658508
+Batch [2450/2733], loss: 0.200, accuracy: 0.935, Time elapsed: 108.10965347290039
+Batch [2500/2733], loss: 0.268, accuracy: 0.920, Time elapsed: 99.85825157165527

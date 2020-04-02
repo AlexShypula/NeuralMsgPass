@@ -1,0 +1,18 @@
+apparel accuracy: 92.000, ER: 8.000, paper ER: 12.500, diff: -4.500
+baby accuracy: 88.500, ER: 11.500, paper ER: 11.300, diff: 0.200
+books accuracy: 90.000, ER: 10.000, paper ER: 13.800, diff: -3.800
+camera_photo accuracy: 92.000, ER: 8.000, paper ER: 11.000, diff: -3.000
+dvd accuracy: 88.500, ER: 11.500, paper ER: 12.000, diff: -0.500
+electronics accuracy: 89.500, ER: 10.500, paper ER: 11.500, diff: -1.000
+health_personal_care accuracy: 87.500, ER: 12.500, paper ER: 10.500, diff: 2.000
+imdb accuracy: 87.500, ER: 12.500, paper ER: 13.500, diff: -1.000
+kitchen_housewares accuracy: 89.000, ER: 11.000, paper ER: 11.800, diff: -0.800
+magazines accuracy: 94.000, ER: 6.000, paper ER: 7.800, diff: -1.800
+MR accuracy: 75.500, ER: 24.500, paper ER: 22.000, diff: 2.500
+music accuracy: 85.000, ER: 15.000, paper ER: 14.300, diff: 0.700
+software accuracy: 90.500, ER: 9.500, paper ER: 12.800, diff: -3.300
+sports_outdoors accuracy: 89.500, ER: 10.500, paper ER: 13.300, diff: -2.800
+toys_games accuracy: 86.500, ER: 13.500, paper ER: 10.800, diff: 2.700
+video accuracy: 84.500, ER: 15.500, paper ER: 14.000, diff: 1.500
+
+average accuracy: 88.125, ER: 11.875, paper ER: 12.700, diff: -0.825

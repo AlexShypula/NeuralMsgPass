@@ -1,0 +1,536 @@
+Commencing fine tuning for task: apparel, 1 of 16
+Loading Model for task: apparel ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/apparel
+epoch 0 start fine tuning...
+Batch [50/174], loss: 0.313, accuracy: 0.892, Time elapsed: 42.08060884475708
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.7638190954773869% @@@
+
+loss: 0.054, accuracy: 0.764, Time elapsed: 4.8938148021698 s
+Batch [100/174], loss: 0.407, accuracy: 0.787, Time elapsed: 62.9727520942688
+Batch [150/174], loss: 0.383, accuracy: 0.805, Time elapsed: 39.53931260108948
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8894472361809045% @@@
+
+loss: 0.037, accuracy: 0.889, Time elapsed: 5.041932106018066 s
+epoch 1 start fine tuning...
+Batch [50/174], loss: 0.260, accuracy: 0.912, Time elapsed: 42.03426384925842
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.9045226130653267% @@@
+
+loss: 0.029, accuracy: 0.905, Time elapsed: 5.072325944900513 s
+Batch [100/174], loss: 0.243, accuracy: 0.905, Time elapsed: 48.02898669242859
+Batch [150/174], loss: 0.220, accuracy: 0.915, Time elapsed: 52.5957818031311
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.9246231155778895% @@@
+
+loss: 0.027, accuracy: 0.925, Time elapsed: 4.94941782951355 s
+epoch 2 start fine tuning...
+Batch [50/174], loss: 0.173, accuracy: 0.958, Time elapsed: 47.935484409332275
+*** epoch: 2 validation begin ***
+loss: 0.026, accuracy: 0.920, Time elapsed: 4.8971474170684814 s
+Batch [100/174], loss: 0.140, accuracy: 0.940, Time elapsed: 51.924933195114136
+Batch [150/174], loss: 0.142, accuracy: 0.945, Time elapsed: 40.315083265304565
+*** epoch: 2 validation begin ***
+loss: 0.026, accuracy: 0.915, Time elapsed: 5.18212628364563 s
+Commencing fine tuning for task: baby, 2 of 16
+Loading Model for task: baby ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/baby
+epoch 0 start fine tuning...
+Batch [50/163], loss: 0.434, accuracy: 0.804, Time elapsed: 93.66376495361328
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.825% @@@
+
+loss: 0.056, accuracy: 0.825, Time elapsed: 7.460000514984131 s
+Batch [100/163], loss: 0.368, accuracy: 0.845, Time elapsed: 109.76667642593384
+Batch [150/163], loss: 0.362, accuracy: 0.855, Time elapsed: 98.99490690231323
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.85% @@@
+
+loss: 0.043, accuracy: 0.850, Time elapsed: 7.494877576828003 s
+epoch 1 start fine tuning...
+Batch [50/163], loss: 0.228, accuracy: 0.917, Time elapsed: 96.67143678665161
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.88% @@@
+
+loss: 0.040, accuracy: 0.880, Time elapsed: 7.324950456619263 s
+Batch [100/163], loss: 0.255, accuracy: 0.895, Time elapsed: 125.31664085388184
+Batch [150/163], loss: 0.214, accuracy: 0.917, Time elapsed: 88.4996726512909
+*** epoch: 1 validation begin ***
+loss: 0.043, accuracy: 0.875, Time elapsed: 7.52849268913269 s
+epoch 2 start fine tuning...
+Batch [50/163], loss: 0.124, accuracy: 0.958, Time elapsed: 100.11541199684143
+*** epoch: 2 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.885% @@@
+
+loss: 0.040, accuracy: 0.885, Time elapsed: 7.307226896286011 s
+Batch [100/163], loss: 0.107, accuracy: 0.960, Time elapsed: 94.81663751602173
+Batch [150/163], loss: 0.094, accuracy: 0.968, Time elapsed: 114.43000078201294
+*** epoch: 2 validation begin ***
+loss: 0.047, accuracy: 0.885, Time elapsed: 7.1555445194244385 s
+Commencing fine tuning for task: books, 3 of 16
+Loading Model for task: books ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/books
+epoch 0 start fine tuning...
+Batch [50/169], loss: 0.350, accuracy: 0.841, Time elapsed: 158.74690794944763
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8724489795918368% @@@
+
+loss: 0.039, accuracy: 0.872, Time elapsed: 11.263549327850342 s
+Batch [100/169], loss: 0.307, accuracy: 0.875, Time elapsed: 156.93001675605774
+Batch [150/169], loss: 0.307, accuracy: 0.885, Time elapsed: 131.07326316833496
+*** epoch: 0 validation begin ***
+loss: 0.035, accuracy: 0.862, Time elapsed: 10.992034912109375 s
+epoch 1 start fine tuning...
+Batch [50/169], loss: 0.135, accuracy: 0.961, Time elapsed: 158.82953715324402
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8826530612244898% @@@
+
+loss: 0.041, accuracy: 0.883, Time elapsed: 11.648143768310547 s
+Batch [100/169], loss: 0.172, accuracy: 0.940, Time elapsed: 156.9825587272644
+Batch [150/169], loss: 0.213, accuracy: 0.927, Time elapsed: 147.69213128089905
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8979591836734694% @@@
+
+loss: 0.035, accuracy: 0.898, Time elapsed: 10.961987495422363 s
+epoch 2 start fine tuning...
+Batch [50/169], loss: 0.400, accuracy: 0.814, Time elapsed: 138.75434350967407
+*** epoch: 2 validation begin ***
+loss: 0.048, accuracy: 0.837, Time elapsed: 10.93959093093872 s
+Batch [100/169], loss: 0.315, accuracy: 0.880, Time elapsed: 177.79598999023438
+Batch [150/169], loss: 0.132, accuracy: 0.960, Time elapsed: 144.54096508026123
+*** epoch: 2 validation begin ***
+loss: 0.042, accuracy: 0.857, Time elapsed: 10.818273544311523 s
+Commencing fine tuning for task: camera_photo, 4 of 16
+Loading Model for task: camera_photo ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/camera_photo
+epoch 0 start fine tuning...
+Batch [50/173], loss: 0.290, accuracy: 0.877, Time elapsed: 113.39501023292542
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.92% @@@
+
+loss: 0.035, accuracy: 0.920, Time elapsed: 9.841292142868042 s
+Batch [100/173], loss: 0.278, accuracy: 0.892, Time elapsed: 140.5393991470337
+Batch [150/173], loss: 0.246, accuracy: 0.897, Time elapsed: 115.54185318946838
+*** epoch: 0 validation begin ***
+loss: 0.031, accuracy: 0.910, Time elapsed: 9.47094464302063 s
+epoch 1 start fine tuning...
+Batch [50/173], loss: 0.182, accuracy: 0.946, Time elapsed: 123.06235074996948
+*** epoch: 1 validation begin ***
+loss: 0.029, accuracy: 0.920, Time elapsed: 9.445901155471802 s
+Batch [100/173], loss: 0.118, accuracy: 0.965, Time elapsed: 137.1261487007141
+Batch [150/173], loss: 0.115, accuracy: 0.963, Time elapsed: 128.7951521873474
+*** epoch: 1 validation begin ***
+loss: 0.043, accuracy: 0.910, Time elapsed: 9.773547410964966 s
+epoch 2 start fine tuning...
+Batch [50/173], loss: 0.109, accuracy: 0.971, Time elapsed: 116.31412053108215
+*** epoch: 2 validation begin ***
+loss: 0.038, accuracy: 0.915, Time elapsed: 9.552830696105957 s
+Batch [100/173], loss: 0.079, accuracy: 0.978, Time elapsed: 141.52775526046753
+Batch [150/173], loss: 0.076, accuracy: 0.970, Time elapsed: 128.79632306098938
+*** epoch: 2 validation begin ***
+loss: 0.034, accuracy: 0.920, Time elapsed: 10.287389278411865 s
+Commencing fine tuning for task: dvd, 5 of 16
+Loading Model for task: dvd ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/dvd
+epoch 0 start fine tuning...
+Batch [50/167], loss: 0.267, accuracy: 0.895, Time elapsed: 160.91126585006714
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8877005347593583% @@@
+
+loss: 0.040, accuracy: 0.888, Time elapsed: 11.155898809432983 s
+Batch [100/167], loss: 0.331, accuracy: 0.875, Time elapsed: 167.95695209503174
+Batch [150/167], loss: 0.256, accuracy: 0.892, Time elapsed: 168.74609398841858
+*** epoch: 0 validation begin ***
+loss: 0.042, accuracy: 0.866, Time elapsed: 11.053609609603882 s
+epoch 1 start fine tuning...
+Batch [50/167], loss: 0.214, accuracy: 0.929, Time elapsed: 176.46105217933655
+*** epoch: 1 validation begin ***
+loss: 0.049, accuracy: 0.866, Time elapsed: 11.05092191696167 s
+Batch [100/167], loss: 0.110, accuracy: 0.960, Time elapsed: 169.90470242500305
+Batch [150/167], loss: 0.163, accuracy: 0.935, Time elapsed: 163.96680402755737
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.893048128342246% @@@
+
+loss: 0.042, accuracy: 0.893, Time elapsed: 11.30539321899414 s
+epoch 2 start fine tuning...
+Batch [50/167], loss: 0.093, accuracy: 0.971, Time elapsed: 180.7443528175354
+*** epoch: 2 validation begin ***
+loss: 0.053, accuracy: 0.877, Time elapsed: 11.624093532562256 s
+Batch [100/167], loss: 0.041, accuracy: 0.980, Time elapsed: 171.3104612827301
+Batch [150/167], loss: 0.074, accuracy: 0.985, Time elapsed: 148.19010710716248
+*** epoch: 2 validation begin ***
+loss: 0.061, accuracy: 0.850, Time elapsed: 10.956889867782593 s
+Commencing fine tuning for task: electronics, 6 of 16
+Loading Model for task: electronics ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/electronics
+epoch 0 start fine tuning...
+Batch [50/173], loss: 0.355, accuracy: 0.868, Time elapsed: 89.21812701225281
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8585858585858586% @@@
+
+loss: 0.041, accuracy: 0.859, Time elapsed: 9.166999816894531 s
+Batch [100/173], loss: 0.372, accuracy: 0.843, Time elapsed: 116.89904546737671
+Batch [150/173], loss: 0.323, accuracy: 0.863, Time elapsed: 96.58999609947205
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8686868686868687% @@@
+
+loss: 0.037, accuracy: 0.869, Time elapsed: 9.182586193084717 s
+epoch 1 start fine tuning...
+Batch [50/173], loss: 0.244, accuracy: 0.907, Time elapsed: 106.29527187347412
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8787878787878788% @@@
+
+loss: 0.037, accuracy: 0.879, Time elapsed: 9.090231895446777 s
+Batch [100/173], loss: 0.198, accuracy: 0.917, Time elapsed: 90.71741127967834
+Batch [150/173], loss: 0.207, accuracy: 0.905, Time elapsed: 93.68180775642395
+*** epoch: 1 validation begin ***
+loss: 0.039, accuracy: 0.864, Time elapsed: 9.529165744781494 s
+epoch 2 start fine tuning...
+Batch [50/173], loss: 0.143, accuracy: 0.951, Time elapsed: 98.6309163570404
+*** epoch: 2 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8838383838383839% @@@
+
+loss: 0.036, accuracy: 0.884, Time elapsed: 9.323445796966553 s
+Batch [100/173], loss: 0.120, accuracy: 0.973, Time elapsed: 112.10851883888245
+Batch [150/173], loss: 0.082, accuracy: 0.958, Time elapsed: 97.70420026779175
+*** epoch: 2 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.898989898989899% @@@
+
+loss: 0.045, accuracy: 0.899, Time elapsed: 8.928496360778809 s
+Commencing fine tuning for task: health_personal_care, 7 of 16
+Loading Model for task: health_personal_care ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/health_personal_care
+epoch 0 start fine tuning...
+Batch [50/175], loss: 0.386, accuracy: 0.846, Time elapsed: 79.66325354576111
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.875% @@@
+
+loss: 0.043, accuracy: 0.875, Time elapsed: 6.680403709411621 s
+Batch [100/175], loss: 0.333, accuracy: 0.855, Time elapsed: 81.73006272315979
+Batch [150/175], loss: 0.330, accuracy: 0.863, Time elapsed: 77.08073949813843
+*** epoch: 0 validation begin ***
+loss: 0.045, accuracy: 0.850, Time elapsed: 6.721906423568726 s
+epoch 1 start fine tuning...
+Batch [50/175], loss: 0.184, accuracy: 0.929, Time elapsed: 75.01559233665466
+*** epoch: 1 validation begin ***
+loss: 0.045, accuracy: 0.840, Time elapsed: 6.460996150970459 s
+Batch [100/175], loss: 0.289, accuracy: 0.885, Time elapsed: 84.36004090309143
+Batch [150/175], loss: 0.194, accuracy: 0.925, Time elapsed: 78.32434105873108
+*** epoch: 1 validation begin ***
+loss: 0.059, accuracy: 0.835, Time elapsed: 6.541959047317505 s
+epoch 2 start fine tuning...
+Batch [50/175], loss: 0.141, accuracy: 0.936, Time elapsed: 59.80752754211426
+*** epoch: 2 validation begin ***
+loss: 0.052, accuracy: 0.850, Time elapsed: 6.395633935928345 s
+Batch [100/175], loss: 0.119, accuracy: 0.963, Time elapsed: 85.02460598945618
+Batch [150/175], loss: 0.163, accuracy: 0.948, Time elapsed: 87.36097812652588
+*** epoch: 2 validation begin ***
+loss: 0.048, accuracy: 0.855, Time elapsed: 6.653748989105225 s
+Commencing fine tuning for task: imdb, 8 of 16
+Loading Model for task: imdb ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/imdb
+epoch 0 start fine tuning...
+Batch [50/164], loss: 0.356, accuracy: 0.855, Time elapsed: 183.63414430618286
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8729281767955801% @@@
+
+loss: 0.047, accuracy: 0.873, Time elapsed: 10.536978006362915 s
+Batch [100/164], loss: 0.232, accuracy: 0.925, Time elapsed: 225.77354383468628
+Batch [150/164], loss: 0.243, accuracy: 0.900, Time elapsed: 184.59497904777527
+*** epoch: 0 validation begin ***
+loss: 0.045, accuracy: 0.873, Time elapsed: 10.60942816734314 s
+epoch 1 start fine tuning...
+Batch [50/164], loss: 0.144, accuracy: 0.951, Time elapsed: 211.4334888458252
+*** epoch: 1 validation begin ***
+loss: 0.066, accuracy: 0.834, Time elapsed: 11.331900358200073 s
+Batch [100/164], loss: 0.095, accuracy: 0.965, Time elapsed: 209.11844635009766
+Batch [150/164], loss: 0.138, accuracy: 0.948, Time elapsed: 197.62041974067688
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8784530386740331% @@@
+
+loss: 0.051, accuracy: 0.878, Time elapsed: 11.011679887771606 s
+epoch 2 start fine tuning...
+Batch [50/164], loss: 0.028, accuracy: 0.990, Time elapsed: 193.0200390815735
+*** epoch: 2 validation begin ***
+loss: 0.079, accuracy: 0.840, Time elapsed: 10.884271144866943 s
+Batch [100/164], loss: 0.039, accuracy: 0.993, Time elapsed: 206.4731900691986
+Batch [150/164], loss: 0.030, accuracy: 0.988, Time elapsed: 187.19859266281128
+*** epoch: 2 validation begin ***
+loss: 0.072, accuracy: 0.840, Time elapsed: 10.431166410446167 s
+Commencing fine tuning for task: kitchen_housewares, 9 of 16
+Loading Model for task: kitchen_housewares ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/kitchen_housewares
+epoch 0 start fine tuning...
+Batch [50/175], loss: 0.353, accuracy: 0.836, Time elapsed: 84.59215712547302
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8894472361809045% @@@
+
+loss: 0.037, accuracy: 0.889, Time elapsed: 7.351179599761963 s
+Batch [100/175], loss: 0.307, accuracy: 0.865, Time elapsed: 78.88948655128479
+Batch [150/175], loss: 0.277, accuracy: 0.900, Time elapsed: 71.76338148117065
+*** epoch: 0 validation begin ***
+loss: 0.038, accuracy: 0.879, Time elapsed: 7.585761785507202 s
+epoch 1 start fine tuning...
+Batch [50/175], loss: 0.174, accuracy: 0.941, Time elapsed: 76.5862627029419
+*** epoch: 1 validation begin ***
+loss: 0.050, accuracy: 0.849, Time elapsed: 7.277680397033691 s
+Batch [100/175], loss: 0.157, accuracy: 0.948, Time elapsed: 87.61650323867798
+Batch [150/175], loss: 0.186, accuracy: 0.935, Time elapsed: 77.6809310913086
+*** epoch: 1 validation begin ***
+loss: 0.040, accuracy: 0.874, Time elapsed: 7.237952470779419 s
+epoch 2 start fine tuning...
+Batch [50/175], loss: 0.082, accuracy: 0.973, Time elapsed: 75.12234091758728
+*** epoch: 2 validation begin ***
+loss: 0.057, accuracy: 0.864, Time elapsed: 7.439253091812134 s
+Batch [100/175], loss: 0.059, accuracy: 0.983, Time elapsed: 82.35035967826843
+Batch [150/175], loss: 0.116, accuracy: 0.973, Time elapsed: 82.59591555595398
+*** epoch: 2 validation begin ***
+loss: 0.047, accuracy: 0.869, Time elapsed: 7.490086078643799 s
+Commencing fine tuning for task: magazines, 10 of 16
+Loading Model for task: magazines ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/magazines
+epoch 0 start fine tuning...
+Batch [50/170], loss: 0.279, accuracy: 0.907, Time elapsed: 120.69039011001587
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.9187817258883249% @@@
+
+loss: 0.030, accuracy: 0.919, Time elapsed: 9.242669820785522 s
+Batch [100/170], loss: 0.292, accuracy: 0.880, Time elapsed: 118.7523684501648
+Batch [150/170], loss: 0.225, accuracy: 0.920, Time elapsed: 112.69022941589355
+*** epoch: 0 validation begin ***
+loss: 0.028, accuracy: 0.919, Time elapsed: 9.202647686004639 s
+epoch 1 start fine tuning...
+Batch [50/170], loss: 0.142, accuracy: 0.961, Time elapsed: 120.03968214988708
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.9390862944162437% @@@
+
+loss: 0.022, accuracy: 0.939, Time elapsed: 9.155741214752197 s
+Batch [100/170], loss: 0.120, accuracy: 0.960, Time elapsed: 132.53074884414673
+Batch [150/170], loss: 0.178, accuracy: 0.932, Time elapsed: 99.35414338111877
+*** epoch: 1 validation begin ***
+loss: 0.029, accuracy: 0.919, Time elapsed: 9.148393154144287 s
+epoch 2 start fine tuning...
+Batch [50/170], loss: 0.135, accuracy: 0.951, Time elapsed: 123.05949997901917
+*** epoch: 2 validation begin ***
+loss: 0.029, accuracy: 0.904, Time elapsed: 9.45451307296753 s
+Batch [100/170], loss: 0.121, accuracy: 0.963, Time elapsed: 120.55514812469482
+Batch [150/170], loss: 0.090, accuracy: 0.973, Time elapsed: 108.96080780029297
+*** epoch: 2 validation begin ***
+loss: 0.037, accuracy: 0.888, Time elapsed: 9.232197999954224 s
+Commencing fine tuning for task: MR, 11 of 16
+Loading Model for task: MR ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/MR
+epoch 0 start fine tuning...
+Batch [50/175], loss: 0.448, accuracy: 0.801, Time elapsed: 7.682081937789917
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.74% @@@
+
+loss: 0.065, accuracy: 0.740, Time elapsed: 1.1162865161895752 s
+Batch [100/175], loss: 0.416, accuracy: 0.797, Time elapsed: 9.036253929138184
+Batch [150/175], loss: 0.417, accuracy: 0.818, Time elapsed: 7.97131609916687
+*** epoch: 0 validation begin ***
+loss: 0.067, accuracy: 0.740, Time elapsed: 1.1272003650665283 s
+epoch 1 start fine tuning...
+Batch [50/175], loss: 0.292, accuracy: 0.897, Time elapsed: 8.057316064834595
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.745% @@@
+
+loss: 0.084, accuracy: 0.745, Time elapsed: 1.1392390727996826 s
+Batch [100/175], loss: 0.222, accuracy: 0.917, Time elapsed: 9.148666143417358
+Batch [150/175], loss: 0.251, accuracy: 0.900, Time elapsed: 7.39797306060791
+*** epoch: 1 validation begin ***
+loss: 0.075, accuracy: 0.740, Time elapsed: 1.2100157737731934 s
+epoch 2 start fine tuning...
+Batch [50/175], loss: 0.110, accuracy: 0.963, Time elapsed: 7.598308801651001
+*** epoch: 2 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.75% @@@
+
+loss: 0.085, accuracy: 0.750, Time elapsed: 1.2582802772521973 s
+Batch [100/175], loss: 0.133, accuracy: 0.950, Time elapsed: 8.695642948150635
+Batch [150/175], loss: 0.134, accuracy: 0.940, Time elapsed: 7.045235633850098
+*** epoch: 2 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.755% @@@
+
+loss: 0.089, accuracy: 0.755, Time elapsed: 1.2933714389801025 s
+Commencing fine tuning for task: music, 12 of 16
+Loading Model for task: music ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/music
+epoch 0 start fine tuning...
+Batch [50/172], loss: 0.382, accuracy: 0.858, Time elapsed: 145.1080665588379
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8256410256410256% @@@
+
+loss: 0.048, accuracy: 0.826, Time elapsed: 8.696840286254883 s
+Batch [100/172], loss: 0.339, accuracy: 0.873, Time elapsed: 140.27268505096436
+Batch [150/172], loss: 0.303, accuracy: 0.870, Time elapsed: 129.07882690429688
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8358974358974359% @@@
+
+loss: 0.047, accuracy: 0.836, Time elapsed: 8.92000412940979 s
+epoch 1 start fine tuning...
+Batch [50/172], loss: 0.187, accuracy: 0.934, Time elapsed: 135.4242343902588
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8461538461538461% @@@
+
+loss: 0.052, accuracy: 0.846, Time elapsed: 8.816205024719238 s
+Batch [100/172], loss: 0.150, accuracy: 0.948, Time elapsed: 143.0895130634308
+Batch [150/172], loss: 0.186, accuracy: 0.930, Time elapsed: 134.9757091999054
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8512820512820513% @@@
+
+loss: 0.051, accuracy: 0.851, Time elapsed: 9.321606397628784 s
+epoch 2 start fine tuning...
+Batch [50/172], loss: 0.102, accuracy: 0.968, Time elapsed: 145.96846723556519
+*** epoch: 2 validation begin ***
+loss: 0.072, accuracy: 0.821, Time elapsed: 9.053597450256348 s
+Batch [100/172], loss: 0.042, accuracy: 0.995, Time elapsed: 155.1834728717804
+Batch [150/172], loss: 0.060, accuracy: 0.968, Time elapsed: 137.0571849346161
+*** epoch: 2 validation begin ***
+loss: 0.078, accuracy: 0.810, Time elapsed: 8.938327550888062 s
+Commencing fine tuning for task: software, 13 of 16
+Loading Model for task: software ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/software
+epoch 0 start fine tuning...
+Batch [50/161], loss: 0.305, accuracy: 0.870, Time elapsed: 162.77966713905334
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.864321608040201% @@@
+
+loss: 0.039, accuracy: 0.864, Time elapsed: 10.539841413497925 s
+Batch [100/161], loss: 0.302, accuracy: 0.880, Time elapsed: 155.5848355293274
+Batch [150/161], loss: 0.214, accuracy: 0.925, Time elapsed: 118.89200115203857
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8894472361809045% @@@
+
+loss: 0.033, accuracy: 0.889, Time elapsed: 10.507166862487793 s
+epoch 1 start fine tuning...
+Batch [50/161], loss: 0.181, accuracy: 0.939, Time elapsed: 162.25223565101624
+*** epoch: 1 validation begin ***
+loss: 0.044, accuracy: 0.864, Time elapsed: 10.379631280899048 s
+Batch [100/161], loss: 0.171, accuracy: 0.948, Time elapsed: 150.56884026527405
+Batch [150/161], loss: 0.146, accuracy: 0.948, Time elapsed: 136.76599192619324
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.9045226130653267% @@@
+
+loss: 0.033, accuracy: 0.905, Time elapsed: 10.976080656051636 s
+epoch 2 start fine tuning...
+Batch [50/161], loss: 0.087, accuracy: 0.980, Time elapsed: 151.66630148887634
+*** epoch: 2 validation begin ***
+loss: 0.038, accuracy: 0.905, Time elapsed: 10.704753637313843 s
+Batch [100/161], loss: 0.045, accuracy: 0.993, Time elapsed: 153.84091663360596
+Batch [150/161], loss: 0.076, accuracy: 0.975, Time elapsed: 154.62021374702454
+*** epoch: 2 validation begin ***
+loss: 0.038, accuracy: 0.889, Time elapsed: 10.456738233566284 s
+Commencing fine tuning for task: sports_outdoors, 14 of 16
+Loading Model for task: sports_outdoors ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/sports_outdoors
+epoch 0 start fine tuning...
+Batch [50/175], loss: 0.305, accuracy: 0.887, Time elapsed: 95.69574928283691
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8928571428571429% @@@
+
+loss: 0.035, accuracy: 0.893, Time elapsed: 8.827351570129395 s
+Batch [100/175], loss: 0.310, accuracy: 0.870, Time elapsed: 112.17226457595825
+Batch [150/175], loss: 0.309, accuracy: 0.875, Time elapsed: 104.95179510116577
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8979591836734694% @@@
+
+loss: 0.033, accuracy: 0.898, Time elapsed: 8.530539751052856 s
+epoch 1 start fine tuning...
+Batch [50/175], loss: 0.166, accuracy: 0.941, Time elapsed: 91.88034176826477
+*** epoch: 1 validation begin ***
+loss: 0.040, accuracy: 0.898, Time elapsed: 8.338339567184448 s
+Batch [100/175], loss: 0.159, accuracy: 0.935, Time elapsed: 119.76243591308594
+Batch [150/175], loss: 0.170, accuracy: 0.935, Time elapsed: 84.56854104995728
+*** epoch: 1 validation begin ***
+loss: 0.046, accuracy: 0.888, Time elapsed: 9.010960578918457 s
+epoch 2 start fine tuning...
+Batch [50/175], loss: 0.085, accuracy: 0.978, Time elapsed: 87.09619331359863
+*** epoch: 2 validation begin ***
+loss: 0.042, accuracy: 0.872, Time elapsed: 8.510180473327637 s
+Batch [100/175], loss: 0.080, accuracy: 0.978, Time elapsed: 109.68869400024414
+Batch [150/175], loss: 0.058, accuracy: 0.985, Time elapsed: 99.50989270210266
+*** epoch: 2 validation begin ***
+loss: 0.046, accuracy: 0.857, Time elapsed: 8.433250427246094 s
+Commencing fine tuning for task: toys_games, 15 of 16
+Loading Model for task: toys_games ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/toys_games
+epoch 0 start fine tuning...
+Batch [50/175], loss: 0.379, accuracy: 0.841, Time elapsed: 78.06109189987183
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.805% @@@
+
+loss: 0.054, accuracy: 0.805, Time elapsed: 6.652284383773804 s
+Batch [100/175], loss: 0.345, accuracy: 0.873, Time elapsed: 86.81162285804749
+Batch [150/175], loss: 0.327, accuracy: 0.868, Time elapsed: 87.80148506164551
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.84% @@@
+
+loss: 0.052, accuracy: 0.840, Time elapsed: 6.760650157928467 s
+epoch 1 start fine tuning...
+Batch [50/175], loss: 0.255, accuracy: 0.917, Time elapsed: 85.48241019248962
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.85% @@@
+
+loss: 0.050, accuracy: 0.850, Time elapsed: 6.822859287261963 s
+Batch [100/175], loss: 0.232, accuracy: 0.905, Time elapsed: 95.17876291275024
+Batch [150/175], loss: 0.246, accuracy: 0.895, Time elapsed: 83.32087635993958
+*** epoch: 1 validation begin ***
+loss: 0.049, accuracy: 0.840, Time elapsed: 6.966010093688965 s
+epoch 2 start fine tuning...
+Batch [50/175], loss: 0.192, accuracy: 0.931, Time elapsed: 86.24676084518433
+*** epoch: 2 validation begin ***
+loss: 0.055, accuracy: 0.825, Time elapsed: 6.841333866119385 s
+Batch [100/175], loss: 0.131, accuracy: 0.958, Time elapsed: 87.83234643936157
+Batch [150/175], loss: 0.151, accuracy: 0.945, Time elapsed: 95.43117809295654
+*** epoch: 2 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.865% @@@
+
+loss: 0.055, accuracy: 0.865, Time elapsed: 6.912935733795166 s
+Commencing fine tuning for task: video, 16 of 16
+Loading Model for task: video ...
+Model loaded from: models/model.pt
+made model directory models/fine_tune/video
+epoch 0 start fine tuning...
+Batch [50/171], loss: 0.277, accuracy: 0.882, Time elapsed: 167.5630111694336
+*** epoch: 0 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.8385416666666666% @@@
+
+loss: 0.051, accuracy: 0.839, Time elapsed: 10.454887866973877 s
+Batch [100/171], loss: 0.241, accuracy: 0.917, Time elapsed: 172.8240466117859
+Batch [150/171], loss: 0.212, accuracy: 0.922, Time elapsed: 135.35432243347168
+*** epoch: 0 validation begin ***
+loss: 0.054, accuracy: 0.828, Time elapsed: 10.067112684249878 s
+epoch 1 start fine tuning...
+Batch [50/171], loss: 0.071, accuracy: 0.968, Time elapsed: 129.81502890586853
+*** epoch: 1 validation begin ***
+loss: 0.089, accuracy: 0.807, Time elapsed: 10.062148571014404 s
+Batch [100/171], loss: 0.066, accuracy: 0.985, Time elapsed: 166.26735472679138
+Batch [150/171], loss: 0.121, accuracy: 0.970, Time elapsed: 142.28777265548706
+*** epoch: 1 validation begin ***
+@@@ Saving Best Model with Accuracy: 0.84375% @@@
+
+loss: 0.059, accuracy: 0.844, Time elapsed: 10.268818140029907 s
+epoch 2 start fine tuning...
+Batch [50/171], loss: 0.022, accuracy: 0.995, Time elapsed: 143.48991990089417
+*** epoch: 2 validation begin ***
+loss: 0.096, accuracy: 0.802, Time elapsed: 9.973848104476929 s
+Batch [100/171], loss: 0.019, accuracy: 0.995, Time elapsed: 138.99400448799133
+Batch [150/171], loss: 0.062, accuracy: 0.988, Time elapsed: 143.1101233959198
+*** epoch: 2 validation begin ***
+loss: 0.080, accuracy: 0.807, Time elapsed: 10.090596675872803 s
