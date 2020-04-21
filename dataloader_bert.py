@@ -38,7 +38,8 @@ class sentimentDataset(Dataset):
         self.labels = []
         self.task_lengths = []
         self.task_beginning_indices = []
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+        self.attention_masks = []
         for dataset_name in dataset_names:
             with open(os.path.join(path_to_data, dataset_name) + '.' + mode, \
                 encoding='utf-8', errors='ignore') as f:
@@ -47,38 +48,58 @@ class sentimentDataset(Dataset):
                     line = line.strip()
                     label = line[0]
                     sentence = line[2:]
-                    tokenized_review = self.tokenizer.tokenize(sentence)
-                    if len(tokenized_review) <= sentence_length_threshold:
-                        self.labels.append(int(label)) #TODO typecheck
-                        ids_review  = self.tokenizer.convert_tokens_to_ids(tokenized_review)
-                        ids_review = ids_review + [0] * (sentence_length_threshold - len(ids_review))
-                        sentence_tensor = torch.tensor(ids_review,dtype=torch.long)
-                        self.sentence_tensors.append(sentence_tensor)
-                        n_added+=1
+                    self.labels.append(int(label)) #TODO typecheck
+                    encoded_dict = self.tokenizer.encode_plus(
+                        sentence,                      # Sentence to encode.
+                        add_special_tokens = True, # Add '[CLS]' and '[SEP]'
+                        max_length = sentence_length_threshold,           # Pad & truncate all sentences.
+                        pad_to_max_length = True,
+                        return_attention_mask = True,   # Construct attn. masks.
+                        return_tensors = 'pt',     # Return pytorch tensors.
+                    )
+                    n_added+=1
+    
+                    # Add the encoded sentence to the list.    
+                    self.sentence_tensors.append(encoded_dict['input_ids'].view(-1))
+    
+                    # And its attention mask (simply differentiates padding from non-padding).
+                    self.attention_masks.append(encoded_dict['attention_mask'].view(-1))
+                    # # tokenized_review = self.tokenizer.tokenize(sentence)
+                    # if len(ids_review) <= sentence_length_threshold:
+                    #     self.labels.append(int(label)) #TODO typecheck
+                    #     # ids_review  = self.tokenizer.convert_tokens_to_ids(tokenized_review)
+                    #     ids_review = ids_review + [0] * (sentence_length_threshold - len(ids_review))
+                    #     sentence_tensor = torch.tensor(ids_review,dtype=torch.long)
+                    #     self.sentence_tensors.append(sentence_tensor)
+                    #     n_added+=1
 
             self.task_lengths.append(n_added)
         self.task_beginning_indices = self.lengths2indices(self.task_lengths)
 
     def __getitem__(self, i):
         task_index = bisect.bisect_right(self.task_beginning_indices, i) - 1
-        return self.sentence_tensors[i], self.labels[i], self.idx2task[task_index]
+        return self.sentence_tensors[i], self.labels[i], self.attention_masks[i], self.idx2task[task_index]
 
     def shuffle(self):
         index_list = self.task_beginning_indices + [self.__len__()]
         new_sentence_tensors = []
         new_labels = []
+        news_attention_masks = []
         for task_index in range(len(index_list)-1):
             beginning_index = index_list[task_index]
             end_index = index_list[task_index+1]
             sentences = self.sentence_tensors[beginning_index: end_index]
+            masks = self.attention_masks[beginning_index: end_index]
             labels = self.labels[beginning_index: end_index]
             rand_index = list(range(len(sentences)))
             random.shuffle(rand_index)
             new_sentence_tensors.extend([sentences[i] for i in rand_index])
             new_labels.extend([labels[i] for i in rand_index])
+            news_attention_masks.extend([masks[i] for i in rand_index])
 
         self.sentence_tensors = new_sentence_tensors
         self.labels = new_labels
+        self.attention_masks = news_attention_masks
 
     def __len__(self):
         return len(self.sentence_tensors)
@@ -147,15 +168,17 @@ class batch_iterator:
             functional_batch_size, task_index, dataset_start_idx = self.get_index_info(i)
             sentences = []
             labels = []
+            masks = []
         
             #print(f"i is {i} and functional batch size is {functional_batch_size} task index is {task_index} dataset start idx is {dataset_start_idx}")
             for j in range(functional_batch_size):
-                sentence, label, task = self.dataset[dataset_start_idx+j]
+                sentence, label, mask, task = self.dataset[dataset_start_idx+j]
                 assert task == self.dataset.idx2task[task_index]
                 sentences.append(sentence)
                 labels.append(label)
+                masks.append(mask)
             #print(f"sentences are {sentences} and labels are {labels} and task is {task}")
-            yield sentences, torch.tensor(labels, dtype = torch.long), task
+            yield sentences, torch.tensor(labels, dtype = torch.long), masks, task
 
     def __len__(self):
         return self.number_batches
