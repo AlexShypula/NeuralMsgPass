@@ -3,4 +3,5 @@ processed-dataset/embedding.pkl
 *.DS_Store
 *.vscode/
 *.txt
-
+*glue_data
+*dataset
