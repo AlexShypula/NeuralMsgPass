@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.utils.rnn as rnn
+import torch.nn.functional as F
 from .message_lstm import message_lstm
 
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -35,22 +36,37 @@ class my_model(nn.Module):
         self.embed.weight.requires_grad = True
         self.share_lstm = nn.LSTM(self.embed_dim, self.hidden_size,
                                   num_layers=1, batch_first=self.batch_first, bidirectional=True)
-        # self.task_specific_lstm_list = nn.ModuleList([message_lstm(self.embed_dim,
-        #                                                            self.hidden_size,
-        #                                                            self.message_size,
-        #                                                            self.bias,
-        #                                                            self.batch_first,
-        #                                                            self.bidirectional)] * self.num_tasks)
+
         self.task_specific_lstm_list = nn.ModuleList()
         for _ in range(self.num_tasks):
             self.task_specific_lstm_list.append(message_lstm(self.embed_dim,
-                                                             self.hidden_size,
-                                                             self.message_size,
-                                                             self.bias,
-                                                             self.batch_first,
-                                                             self.bidirectional))
+                                                     self.hidden_size,
+                                                     self.message_size,
+                                                     self.bias,
+                                                     self.batch_first,
+                                                     self.bidirectional))
+        # self.task_specific_lstm_list = nn.ModuleList([message_lstm(self.embed_dim,
+        #                                              self.hidden_size,
+        #                                              self.message_size,
+        #                                              self.bias,
+        #                                              self.batch_first,
+        #                                              self.bidirectional)] * self.num_tasks)
 
         self.sigmoid = nn.Sigmoid()
+    
+    def avgpool(self, x, mask):
+        """do avg pool on time dimension
+        
+        Arguments:
+            x {torch.FloatTensoro} -- hidden output from task specific lstm of shap B x T x H
+            mask {[torch.FloatTensor]} -- B x T
+        """
+        summed = torch.sum(mask, 1) # B
+        mask = mask.unsqueeze(2)
+        x = x * mask # B T H
+        x = torch.sum(x, 1) # B H
+        x = x / summed.unsqueeze(1)
+        return x
 
     def forward(self, x, mask, TASK):
 
@@ -88,5 +104,6 @@ class my_model(nn.Module):
         max_pool_mask_value = torch.ones_like(out) * -1000000  # B x T with all very small numbers
         out = torch.where(mask, out, max_pool_mask_value)  # give pad_value very small numbers
         out, _ = torch.max(out, 1, keepdim=True)  # B x 1
+
         out = self.sigmoid(out)
         return out
