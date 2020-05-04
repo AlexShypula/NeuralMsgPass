@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.utils.rnn as rnn
+import torch.nn.functional as F
 from .message_lstm import message_lstm
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 import pdb
@@ -34,14 +35,35 @@ class my_model(nn.Module):
         self.embed.weight.requires_grad=True
         self.share_lstm = nn.LSTM(self.embed_dim, self.hidden_size,
                                   num_layers=1, batch_first=self.batch_first, bidirectional=True)
-        self.task_specific_lstm_list = [message_lstm(self.embed_dim,
+        self.task_specific_lstm_list = nn.ModuleList()
+        for _ in range(self.num_tasks):
+            self.task_specific_lstm_list.append(message_lstm(self.embed_dim,
                                                      self.hidden_size,
                                                      self.message_size,
                                                      self.bias,
                                                      self.batch_first,
-                                                     self.bidirectional)] * self.num_tasks
-
+                                                     self.bidirectional))
+        # self.task_specific_lstm_list = nn.ModuleList([message_lstm(self.embed_dim,
+        #                                              self.hidden_size,
+        #                                              self.message_size,
+        #                                              self.bias,
+        #                                              self.batch_first,
+        #                                              self.bidirectional)] * self.num_tasks)
         self.sigmoid = nn.Sigmoid()
+    
+    def avgpool(self, x, mask):
+        """do avg pool on time dimension
+        
+        Arguments:
+            x {torch.FloatTensoro} -- hidden output from task specific lstm of shap B x T x H
+            mask {[torch.FloatTensor]} -- B x T
+        """
+        summed = torch.sum(mask, 1) # B
+        mask = mask.unsqueeze(2)
+        x = x * mask # B T H
+        x = torch.sum(x, 1) # B H
+        x = x / summed.unsqueeze(1)
+        return x
 
     def forward(self, x, mask, TASK):
 
@@ -71,8 +93,9 @@ class my_model(nn.Module):
             outputs.append(output)
             h_task = state_h.unsqueeze(1)  # B x 1 x H
             h_task = h_task.repeat(1, shared_task_output.size(1), 1)  # state_h was B x H -> B x T x H
-            # pdb.set_trace()
-        # out = torch.stack(outputs, axis=1)
-        out = task_specific_lstm.fc(output)
+        out = torch.stack(outputs, axis=1) # B x T x H
+        # pdb.set_trace()
+        out = self.avgpool(out, mask)
+        out = task_specific_lstm.fc(out)
         out = self.sigmoid(out)
         return out

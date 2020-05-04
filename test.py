@@ -45,8 +45,8 @@ for test_batch_id, (test_x, test_y, task_type) in enumerate(test_loader):
             avg += cur_test_acc
             print(cur_task + " accuracy: {:.3f}".format(cur_test_acc))
             result_file.write(cur_task + " accuracy: {:.3f}, ER: {:.3f}, paper ER: {:.3f}, diff: {:.3f}\n"
-                    .format(cur_test_acc * 100, (1 - cur_test_acc) * 100, dict_er[task_type],
-                    (1 - cur_test_acc) * 100 - dict_er[task_type]))
+                    .format(cur_test_acc * 100, (1 - cur_test_acc) * 100, dict_er[cur_task],
+                    (1 - cur_test_acc) * 100 - dict_er[cur_task]))
         cur_task = task_type
         path = os.path.join("models", "fine_tune", task_type, "fine_tune_" + task_type + "_model.pt")
         if not os.path.exists(path):
