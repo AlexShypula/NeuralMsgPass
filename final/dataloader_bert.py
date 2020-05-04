@@ -24,7 +24,8 @@ MODE_TEST = "test"
 DATASETS = ['CoLA', 'MNLI', 'MRPC', 'QNLI', 'QQP', 'RTE',
             'SNLI', 'SST-2', 'STS-B', 'WNLI']
 
-NLI = ['MNLI', 'QNLI', 'RTE', 'SNLI', 'WNLI']
+
+NLI = ['MNLI', 'QNLI', 'RTE', 'WNLI']
 
 
 class sentimentDataset(Dataset):
@@ -77,7 +78,8 @@ class sentimentDataset(Dataset):
                     else:
                         sentence1 = self.tokenizer.tokenize(line['sentence1'])
                         sentence2 = self.tokenizer.tokenize(line['sentence2'])
-                    sentence = ['<tsk{}>'.format(i)] + sentence1 + [self.tokenizer.sep_token] + sentence2
+
+                    sentence = ['<tsk{}>'.format(i)] + sentence1 + [self.tokenizer.sep_token] + sentence2 + [self.tokenizer.sep_token]
                     # sentence = [self.tokenizer.cls_token] + sentence1 + [self.tokenizer.sep_token] + sentence2
                     encoded_dict = self.tokenizer.encode_plus(
                         text=sentence,                      # Sentence to encode.
@@ -97,7 +99,7 @@ class sentimentDataset(Dataset):
 
                     # dataset is super big, debug with small size:
                     # if n_added == 1000:
-                        # break
+                    #     break
 
             self.task_lengths.append(n_added)
         self.task_beginning_indices = self.lengths2indices(self.task_lengths)

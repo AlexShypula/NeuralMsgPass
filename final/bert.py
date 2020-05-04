@@ -4,12 +4,15 @@ import torch.nn as nn
 
 
 class BertForNLI(BertPreTrainedModel):
-    def __init__(self, config, bert_type, label2idx):
+
+    def __init__(self, config, label2idx):
         super().__init__(config)
+        self.num_labels = config.num_labels
         n_classes = [len(x) for x in label2idx.values()]
-        self.task2idx = {d: i for i, d in enumerate(label2idx.keys())}
         self.label2idx = label2idx
-        self.bert = BertModel.from_pretrained(bert_type)
+        self.task2idx = {task: i for i, task in enumerate(label2idx.keys())}
+
+        self.bert = BertModel(config)
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
         self.classifier = nn.ModuleList([nn.Linear(config.hidden_size, x) for x in n_classes])
 
@@ -78,13 +81,12 @@ class BertForNLI(BertPreTrainedModel):
 
         pooled_output = outputs[1]
 
-        pooled_output = self.dropout(pooled_output)
         task_idx = self.task2idx[task]
+        pooled_output = self.dropout(pooled_output)
         logits = self.classifier[task_idx](pooled_output)
+        n_labels = len(self.label2idx[task])
 
         outputs = (logits,) + outputs[2:]  # add hidden states and attention if they are here
-
-        n_labels = len(self.label2idx[task])
         assert logits.size(1) == n_labels
         if labels is not None:
             loss_fct = nn.CrossEntropyLoss()
