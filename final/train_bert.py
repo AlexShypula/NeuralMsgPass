@@ -43,12 +43,12 @@ scheduler = get_linear_schedule_with_warmup(optimizer,
 # criterion = nn.BCELoss(reduction='mean')
 # criterion = criterion.to(DEVICE)
 
-cur_valid_acc, best_valid_acc = 0.0, 0.0
-train_acc = defaultdict(int)
-train_total = defaultdict(int)
-val_acc = defaultdict(int)
-val_total = defaultdict(int)
 for e in range(num_epoch):
+    cur_valid_acc, best_valid_acc = 0.0, 0.0
+    train_acc = defaultdict(int)
+    train_total = defaultdict(int)
+    val_acc = defaultdict(int)
+    val_total = defaultdict(int)
     before = time.time()
     corrects = 0
     cum_loss = 0
@@ -131,7 +131,7 @@ for e in range(num_epoch):
             binary_outputs = np.argmax(logits.data.cpu().numpy(),axis=1)
 
             val_correct = sum(binary_outputs == val_y.data.cpu().numpy().astype(np.int64))
-            val_corrects += correct
+            val_corrects += val_correct
             val_count += val_x.size(0)
             val_acc[task_type] += correct
             val_total[task_type] += val_x.size(0)
